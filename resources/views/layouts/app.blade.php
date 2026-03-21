@@ -16,6 +16,17 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 shadow-sm">
         <div class="container">
             <a class="navbar-brand font-weight-bold" href="{{ url('/') }}">{{ __('orders.app_name') }}</a>
+            <div class="vr bg-white mx-2 d-none d-lg-block"></div>
+            @guest
+            <a class="navbar-brand font-weight-bold" href="{{ route('login') }}">{{ __('ui.login') }}</a>
+            <a class="navbar-brand font-weight-bold" href="{{ route('register') }}">{{ __('ui.register') }}</a>
+            @else
+            <form id="logout" action="{{ route('logout') }}" method="POST">
+                <a role="button" class="nav-link active"
+                    onclick="document.getElementById('logout').submit();">{{ __('ui.logout') }}</a>
+                @csrf
+            </form>
+            @endguest
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

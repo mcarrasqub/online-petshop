@@ -2,6 +2,7 @@
 // Edited by David García Zapata
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,3 +17,7 @@ Route::put('/orders/{order}', '\App\Http\Controllers\OrderController@update')->n
 Route::delete('/orders/{order}', '\App\Http\Controllers\OrderController@destroy')->name('orders.destroy');
 
 
+
+Auth::routes();
+
+Route::get('/home', '\App\Http\Controllers\HomeController@index')->name('home');

@@ -1,6 +1,6 @@
 <?php
 
-// Edited by David García Zapata and Mariana Carrasquilla Botero
+// Edited by David García Zapata, Sofia Gallo and Mariana Carrasquilla Botero
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +41,4 @@ Auth::routes();
 
 Route::get('/home', '\App\Http\Controllers\HomeController@index')->name('home');
 
-
+Route::get('/admin', 'App\Http\Controllers\Admin\AdminHomeController@index')->name('admin.home.index');

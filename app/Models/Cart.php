@@ -1,5 +1,7 @@
 <?php
-//edited by David Garcia Zapata
+
+// edited by David Garcia Zapata
+
 namespace App\Models;
 
 use Illuminate\Support\Facades\Session;
@@ -18,6 +20,7 @@ class Cart
         foreach ($cart as $item) {
             $total += $item['price'] * $item['quantity'];
         }
+
         return $total;
     }
 
@@ -43,7 +46,7 @@ class Cart
     public static function remove($id)
     {
         $cart = self::getCart();
-        
+
         if (isset($cart[$id])) {
             unset($cart[$id]);
             Session::put('cart', $cart);

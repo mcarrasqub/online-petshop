@@ -1,5 +1,7 @@
 <?php
 
+// edited by Sofia Gallo
+
 return [
     'login' => 'Iniciar sesión',
     'register' => 'Registrarse',

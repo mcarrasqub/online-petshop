@@ -32,6 +32,13 @@ Route::put('/products/{product}', '\App\Http\Controllers\ProductController@updat
 Route::get('/products/{product}', '\App\Http\Controllers\ProductController@show')->name('product.show');
 Route::delete('/products/{product}', '\App\Http\Controllers\ProductController@destroy')->name('product.destroy');
 
+Route::get('/cart', '\App\Http\Controllers\CartController@index')->name('cart.index');
+Route::post('/cart/add/{id}', '\App\Http\Controllers\CartController@add')->name('cart.add');
+Route::delete('/cart/remove/{id}', '\App\Http\Controllers\CartController@remove')->name('cart.remove');
+Route::delete('/cart/removeAll', '\App\Http\Controllers\CartController@removeAll')->name('cart.removeAll');
+
 Auth::routes();
 
 Route::get('/home', '\App\Http\Controllers\HomeController@index')->name('home');
+
+

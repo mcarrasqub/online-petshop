@@ -1,4 +1,4 @@
-{{-- Edited by David García Zapata --}}
+//edited by David Garcia Zapata
 @extends('layouts.app')
 
 @section('title', __('orders.title_index'))

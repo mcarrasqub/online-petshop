@@ -4,16 +4,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,8 +44,55 @@ class User extends Authenticatable
         ];
     }
 
-    public function orders()
+    public function orders() : HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+
+
+    public function getId() : int
+    {
+        return $this->id;
+    }
+
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    public function getEmail() : string
+    {
+        return $this->email;
+    }
+
+    public function getPassword() : string
+    {
+        return $this->password;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    public function setName($name) : void
+    {
+        $this->name = $name;
+    }
+
+    public function setEmail($email) : void
+    {
+        $this->email = $email;
+    }
+
+    public function setPassword($password) : void
+    {
+        $this->password = $password;
     }
 }

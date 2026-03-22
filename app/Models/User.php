@@ -4,12 +4,11 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
     /**
      * The attributes that are mass assignable.
      *
@@ -44,29 +43,27 @@ class User extends Authenticatable
         ];
     }
 
-    public function orders() : HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-
-
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getEmail() : string
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function getPassword() : string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -81,17 +78,17 @@ class User extends Authenticatable
         return $this->updated_at;
     }
 
-    public function setName($name) : void
+    public function setName($name): void
     {
         $this->name = $name;
     }
 
-    public function setEmail($email) : void
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
 
-    public function setPassword($password) : void
+    public function setPassword($password): void
     {
         $this->password = $password;
     }

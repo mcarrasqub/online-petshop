@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', __('orders.app_name'))</title>
-    <!-- Bootstrap CSS en lugar de Vite/Tailwind -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Estilos personalizados (si existen en public/css) -->
-    <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="bg-light">
 
-    <!-- Barra de Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 shadow-sm">
         <div class="container">
             <a class="navbar-brand font-weight-bold" href="{{ url('/') }}">{{ __('orders.app_name') }}</a>
@@ -35,17 +32,23 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('orders.index') }}">{{ __('orders.nav_orders') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('cart.index') }}">
+                            <i class="bi bi-cart"></i>
+                            {{ __('cart.nav_cart') }}
+                            @if(session('cart'))
+                                <span class="badge bg-danger">{{ array_sum(array_column(session('cart'), 'quantity')) }}</span>
+                            @endif
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Contenido Principal -->
     <main class="container">
         @yield('content')
     </main>
-
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

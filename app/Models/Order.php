@@ -1,4 +1,5 @@
 <?php
+
 // Edited by David García Zapata
 
 namespace App\Models;
@@ -10,14 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  * $this->attributes['id'] - int - contains the order primary key (id)
  * $this->attributes['total'] - float - contains the order total amount
  * $this->attributes['status'] - string - contains the order status
- * $this->attributes['user_id'] - int - contains the user primary key (id)  
+ * $this->attributes['user_id'] - int - contains the user primary key (id)
  * $this->attributes['created_at'] - datetime - contains the order creation date
  * $this->attributes['updated_at'] - datetime - contains the order update date
  */
-
 class Order extends Model
 {
-
     protected $fillable = [
         'total',
         'status',
@@ -51,7 +50,6 @@ class Order extends Model
     {
         return $this->total;
     }
-
 
     public function getStatus()
     {
@@ -99,7 +97,6 @@ class Order extends Model
     {
         $this->user()->associate($user);
     }
-
 
     // Custom Methods
     public function calculateTotal()

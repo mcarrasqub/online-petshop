@@ -1,11 +1,10 @@
 <?php
+
 // Edited by Mariana Carrasquilla Botero
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * PRODUCTS ATTRIBUTES
@@ -128,5 +127,4 @@ class Product extends Model
     {
         $this->category()->associate($category);
     }
-
 }

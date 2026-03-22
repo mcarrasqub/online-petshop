@@ -1,4 +1,5 @@
 <?php
+
 // Edited by Mariana Carrasquilla Botero
 
 namespace App\Http\Controllers;
@@ -7,7 +8,6 @@ use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use App\Http\Controllers\Storage;
 use Throwable;
 
 class ProductController extends Controller

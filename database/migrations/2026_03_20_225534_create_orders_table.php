@@ -1,4 +1,5 @@
 <?php
+
 // Edited by David García Zapata
 
 use Illuminate\Database\Migrations\Migration;

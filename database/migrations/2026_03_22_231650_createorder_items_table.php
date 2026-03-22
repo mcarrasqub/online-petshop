@@ -1,4 +1,5 @@
 <?php
+
 // Edited by David García Zapata
 
 use Illuminate\Database\Migrations\Migration;
@@ -24,5 +25,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('order_items');
     }
-
 };

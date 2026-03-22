@@ -1,8 +1,9 @@
 <?php
+
 // Edited by David García Zapata and Mariana Carrasquilla Botero
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');

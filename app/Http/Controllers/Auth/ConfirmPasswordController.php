@@ -1,4 +1,5 @@
 <?php
+
 // Edited by Sofia Gallo
 
 namespace App\Http\Controllers\Auth;

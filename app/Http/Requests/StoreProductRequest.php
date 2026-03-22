@@ -1,13 +1,13 @@
 <?php
 
-// Edited by David García Zapata
+// Edited by Mariana Carrasquilla Botero
 
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrderRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,14 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'total_price' => 'required|numeric',
-            'status' => 'required|string',
+            'name' => 'required|string|max:255',
+            'price' => 'required|integer|min:0',
+            'stock' => 'required|integer|min:0',
+            'description' => 'nullable|string|max:255',
+            'specie' => 'required|string|in:dog,cat,bird,fish,rabbit',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ];
     }
 }

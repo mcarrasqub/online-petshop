@@ -1,5 +1,5 @@
 <?php
-
+//edited by David Garcia Zapata
 namespace App\Models;
 
 use Illuminate\Support\Facades\Session;

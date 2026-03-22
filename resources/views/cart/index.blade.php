@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+//edited by David Garcia Zapata
 @section('content')
 <div class="container mt-5">
     <h2>{{ __('cart.nav_cart') }}</h2>

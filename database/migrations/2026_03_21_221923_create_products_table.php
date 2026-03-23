@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock')->default(0);
             $table->string('image')->nullable();
-            $table->enum('specie', ['dog', 'cat', 'bird', 'fish', 'rabbit']);
+            $table->enum('specie', ['dog', 'cat', 'bird', 'fish', 'rabbit', 'all']);
             $table->string('description')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();

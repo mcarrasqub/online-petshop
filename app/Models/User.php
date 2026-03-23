@@ -7,6 +7,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * USERS ATTRIBUTES
+ * $this->attributes['id'] - int - contains the user primary key (id)
+ * $this->attributes['name'] - string - contains the user name
+ * $this->attributes['email'] - string - contains the user email
+ * $this->attributes['phone_number'] - string - contains the user phone number
+ * $this->attributes['password'] - string - contains the user password
+ * $this->attributes['is_admin'] - boolean - indicates if the user is an admin
+ * $this->attributes['created_at'] - datetime - contains the user creation date
+ * $this->attributes['updated_at'] - datetime - contains the user update date
+ */
+
 class User extends Authenticatable
 {
     /**
@@ -19,6 +31,9 @@ class User extends Authenticatable
         'phone_number',
         'email',
         'password',
+        'is_admin',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -41,6 +56,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 
@@ -74,6 +90,11 @@ class User extends Authenticatable
         return $this->password;
     }
 
+    public function getIsAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
     public function getCreatedAt()
     {
         return $this->created_at;
@@ -102,5 +123,10 @@ class User extends Authenticatable
     public function setPassword($password): void
     {
         $this->password = $password;
+    }
+
+    public function setIsAdmin($isAdmin): void
+    {
+        $this->is_admin = $isAdmin;
     }
 }

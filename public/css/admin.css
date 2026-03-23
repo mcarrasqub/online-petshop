@@ -1,5 +1,9 @@
 /* Edited by Sofia Gallo */
 
+body {
+ background-color: #f8f9fc;
+}
+
 .copyright {
  background-color: #1a252f;
 }
@@ -20,7 +24,7 @@ hr {
  width: 2rem;
 }
 .profile-font {
- color: #858796 !important;
+ color: inherit;
  font-size: 80%;
  font-weight: 400;
 }

@@ -1,6 +1,6 @@
 <?php
 
-// Edited by David García Zapata
+// Edited by David García Zapata and Sofia Gallo
 
 namespace App\Models;
 
@@ -16,6 +16,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone_number',
         'email',
         'password',
     ];
@@ -63,6 +64,11 @@ class User extends Authenticatable
         return $this->email;
     }
 
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phone_number;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
@@ -86,6 +92,11 @@ class User extends Authenticatable
     public function setEmail($email): void
     {
         $this->email = $email;
+    }
+
+    public function setPhoneNumber($phoneNumber): void
+    {
+        $this->phone_number = $phoneNumber;
     }
 
     public function setPassword($password): void

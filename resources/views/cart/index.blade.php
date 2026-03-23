@@ -1,5 +1,5 @@
+{{-- edited by David Garcia Zapata --}}
 @extends('layouts.app')
-//edited by David Garcia Zapata
 @section('content')
 <div class="container mt-5">
     <h2>{{ __('cart.nav_cart') }}</h2>
@@ -10,11 +10,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                    <th>Actions</th>
+                    <th>{{ __('cart.labels.product') }}</th>
+                    <th>{{ __('cart.labels.price') }}</th>
+                    <th>{{ __('cart.labels.quantity') }}</th>
+                    <th>{{ __('cart.labels.subtotal') }}</th>
+                    <th>{{ __('cart.labels.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +33,7 @@
                             <form action="{{ route('cart.remove', $id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                <button type="submit" class="btn btn-danger btn-sm">{{ __('cart.labels.remove') }}</button>
                             </form>
                         </td>
                     </tr>
@@ -41,7 +41,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td colspan="3" class="text-end"><strong>{{ __('cart.labels.total') }}:</strong></td>
                     <td><strong>${{ number_format($viewData['total'], 2) }}</strong></td>
                     <td></td>
                 </tr>
@@ -51,13 +51,13 @@
             <form action="{{ route('cart.removeAll') }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-warning">Clear Cart</button>
+                <button type="submit" class="btn btn-warning">{{ __('cart.labels.clear_cart') }}</button>
             </form>
-            <a href="{{ route('product.index') }}" class="btn btn-primary">Proceed to Checkout</a>
+            <a href="{{ route('product.index') }}" class="btn btn-primary">{{ __('cart.labels.proceed_to_checkout') }}</a>
         </div>
     @else
-        <p>Your cart is empty.</p>
-        <a href="{{ route('product.index') }}" class="btn btn-primary">Continue Shopping</a>
+        <p>{{ __('cart.labels.empty_cart') }}</p>
+        <a href="{{ route('product.index') }}" class="btn btn-primary">{{ __('cart.labels.continue_shopping') }}</a>
     @endif
 </div>
 @endsection

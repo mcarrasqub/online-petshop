@@ -1,6 +1,6 @@
 <?php
- 
-//edited by Sofia Gallo
+
+// edited by Sofia Gallo
 
 namespace App\Http\Controllers;
 
@@ -16,49 +16,56 @@ class PaymentController extends Controller
         return view('payment.index');
     }
 
-    public function save(StorePaymentRequest $request): RedirectResponse
+    public function store(StorePaymentRequest $request): RedirectResponse
     {
-        Payment::create($request->validated());
+        $payment = Payment::create($request->validated());
 
-        return back()->with('success', 'Pago procesado exitosamente');
+        return redirect()->route('payment.success', $payment);
 
+    }
+
+    public function success(Payment $payment): View
+    {
+        $payment->load('order');
+
+        return view('payment.success', compact('payment'));
     }
 
     public function list(): View
     {
         $viewData = [];
-        $viewData["title"] = "Pagos - Tienda de mascotas";
-        $viewData["subtitle"] =  "Lista de pagos";
-        $viewData["payments"] = Payment::all();
+        $viewData['title'] = 'Pagos - Tienda de mascotas';
+        $viewData['subtitle'] = 'Lista de pagos';
+        $viewData['payments'] = Payment::all();
 
-        return view('payment.list')->with("viewData", $viewData);
+        return view('payment.list')->with('viewData', $viewData);
     }
 
-    public function show(string $id) : View
+    public function show(string $id): View
     {
         $viewData = [];
         $payment = Payment::findOrFail($id);
-        $viewData["title"] = $payment["amount"]." - Tienda de mascotas";
-        $viewData["subtitle"] =  $payment["amount"]." - Información del pago";
-        $viewData["payment"] = $payment;
+        $viewData['title'] = $payment['amount'].' - Tienda de mascotas';
+        $viewData['subtitle'] = $payment['amount'].' - Información del pago';
+        $viewData['payment'] = $payment;
 
-        return view('payment.show')->with("viewData", $viewData);
+        return view('payment.show')->with('viewData', $viewData);
     }
 
     public function create(): View
     {
         $viewData = [];
-        $viewData["title"] = "Crear Pago - Tienda de mascotas";
-        $viewData["subtitle"] = "Crea un pago nuevo";
+        $viewData['title'] = 'Crear Pago - Tienda de mascotas';
+        $viewData['subtitle'] = 'Crea un pago nuevo';
 
-        return view('payment.create')->with("viewData", $viewData);
+        return view('payment.create')->with('viewData', $viewData);
     }
 
     public function destroy(string $id): RedirectResponse
     {
         $payment = Payment::findOrFail($id);
         $payment->delete();
-        
-        return redirect()->route("payment.list");
-    }       
+
+        return redirect()->route('payment.list');
+    }
 }

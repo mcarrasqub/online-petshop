@@ -1,5 +1,7 @@
 <?php
 
+// Edited by Sofia Gallo
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
-    
+
     /**
      * PAYMENT ATTRIBUTES
      * $this->attributes['id'] - int - contains the payment primary key (id)
@@ -16,10 +18,8 @@ class Payment extends Model
      * $this->attributes['date'] - date - contains the payment date
      * $this->attributes['method'] - string - contains the payment method
      * $this->attributes['order_id'] - int - contains the order primary key (id)
-     * 
      * $this->attributes[timestamps] - timestamp - contains the payment created_at and updated_at timestamps
-    */
-
+     */
     protected $fillable = ['amount', 'date', 'method', 'order_id'];
 
     public function order()
@@ -32,7 +32,7 @@ class Payment extends Model
         return $this->attributes['id'];
     }
 
-    public function setId(int $id) : void
+    public function setId(int $id): void
     {
         $this->attributes['id'] = $id;
     }
@@ -42,7 +42,7 @@ class Payment extends Model
         return $this->attributes['amount'];
     }
 
-    public function setAmount(int $amount) : void
+    public function setAmount(int $amount): void
     {
         $this->attributes['amount'] = $amount;
     }
@@ -52,7 +52,7 @@ class Payment extends Model
         return $this->attributes['date'];
     }
 
-    public function setDate(string $date) : void
+    public function setDate(string $date): void
     {
         $this->attributes['date'] = $date;
     }
@@ -62,7 +62,7 @@ class Payment extends Model
         return $this->attributes['method'];
     }
 
-    public function setMethod(string $method) : void
+    public function setMethod(string $method): void
     {
         $this->attributes['method'] = $method;
     }
@@ -76,5 +76,4 @@ class Payment extends Model
     {
         return $this->attributes['updated_at'];
     }
-
 }

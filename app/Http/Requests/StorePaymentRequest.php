@@ -1,6 +1,6 @@
 <?php
 
-//edited by Sofia Gallo
+// edited by Sofia Gallo
 
 namespace App\Http\Requests;
 

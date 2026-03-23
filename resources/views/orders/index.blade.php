@@ -1,4 +1,4 @@
-//edited by David Garcia Zapata
+{{-- edited by David Garcia Zapata --}}
 @extends('layouts.app')
 
 @section('title', __('orders.title_index'))
@@ -22,8 +22,9 @@
                         <tr>
                             <th>{{ __('orders.fields.id') }}</th>
                             <th>{{ __('orders.fields.user_id') }}</th>
-                            <th>{{ __('orders.fields.total_price') }}</th>
+                            <th>{{ __('orders.fields.total') }}</th>
                             <th>{{ __('orders.fields.status') }}</th>
+                            <th>{{ __('orders.fields.address') }}</th>
                             <th class="text-end">{{ __('orders.fields.actions') }}</th>
                         </tr>
                     </thead>
@@ -32,7 +33,7 @@
                             <tr>
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->user_id }}</td>
-                                <td>${{ number_format($order->total_price, 2) }}</td>
+                                <td>${{ number_format($order->total, 2) }}</td>
                                 <td>
                                     <span @class([
                                         'badge',
@@ -43,6 +44,7 @@
                                         {{ __('orders.status.' . $order->status) }}
                                     </span>
                                 </td>
+                                <td>{{ $order->address }}</td>
                                 <td class="text-end">
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-outline-info">{{ __('orders.btn_view') }}</a>
@@ -57,7 +59,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">{{ __('orders.no_orders') }}</td>
+                                <td colspan="6" class="text-center text-muted py-4">{{ __('orders.no_orders') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

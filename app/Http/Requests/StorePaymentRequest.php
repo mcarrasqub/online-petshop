@@ -1,13 +1,13 @@
 <?php
 
-// Edited by David García Zapata and Sofia Gallo
+//edited by Sofia Gallo
 
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrderRequest extends FormRequest
+class StorePaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,10 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'total' => 'required|numeric',
-            'status' => 'required|string',
-            'address' => 'required|string|max:255',
+            'order_id' => 'required|exists:orders,id',
+            'amount' => 'required|integer|min:0',
+            'date' => 'required|date',
+            'method' => 'required|string|max:255',
         ];
     }
 }

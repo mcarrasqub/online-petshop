@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * $this->attributes['id'] - int - contains the order primary key (id)
  * $this->attributes['total'] - float - contains the order total amount
  * $this->attributes['status'] - string - contains the order status
+ * $this->attributes['address'] - string - contains the order shipping address
  * $this->attributes['user_id'] - int - contains the user primary key (id)
  * $this->attributes['created_at'] - datetime - contains the order creation date
  * $this->attributes['updated_at'] - datetime - contains the order update date
@@ -20,6 +21,7 @@ class Order extends Model
     protected $fillable = [
         'total',
         'status',
+        'address',
         'user_id',
         'created_at',
         'updated_at',
@@ -54,6 +56,11 @@ class Order extends Model
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
     }
 
     public function getUser()
@@ -91,6 +98,11 @@ class Order extends Model
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    public function setAddress($address)
+    {
+        $this->address = $address;
     }
 
     public function setUser($user)

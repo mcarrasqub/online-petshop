@@ -1,6 +1,6 @@
 <?php
 
-// Edited by David García Zapata
+// Edited by David García Zapata and Sofia Gallo
 
 namespace App\Http\Requests;
 
@@ -26,8 +26,9 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'total_price' => 'required|numeric',
+            'total' => 'required|numeric',
             'status' => 'required|string',
+            'address' => 'required|string|max:255',
         ];
     }
 }

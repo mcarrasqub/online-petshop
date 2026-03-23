@@ -29,7 +29,7 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string|max:255',
-            'specie' => 'required|string|in:dog,cat,bird,fish,rabbit',
+            'specie' => 'required|string|in:dog,cat,bird,fish,rabbit,all',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 

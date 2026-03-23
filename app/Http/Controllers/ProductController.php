@@ -4,86 +4,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
+use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Throwable;
 
 class ProductController extends Controller
 {
     public function index(): View
     {
+        $query = request('q');
+        $categoryId = request('category_id');
+
+        $products = Product::query()
+            ->when($query, function ($builder) use ($query) {
+                $builder->where('name', 'like', '%'.$query.'%')
+                    ->orWhere('description', 'like', '%'.$query.'%');
+            })
+            ->when($categoryId, function ($builder) use ($categoryId) {
+                $builder->where('category_id', $categoryId);
+            })
+            ->get();
+
         $viewData = [];
-        $viewData['title'] = 'Products - Huellitas Pet Shop';
-        $viewData['subtitle'] = 'List of products';
-        $viewData['products'] = Product::all();
+        $viewData['title'] = __('product.title_index');
+        $viewData['subtitle'] = __('product.subtitle_index');
+        $viewData['products'] = $products;
+        $viewData['categories'] = Category::orderBy('name')->get();
+        $viewData['search'] = $query;
+        $viewData['selectedCategory'] = $categoryId;
 
         return view('product.index')->with('viewData', $viewData);
     }
 
-    public function show(string $id): View
+    public function show(Product $product): View
     {
         $viewData = [];
-        $product = Product::findOrFail($id);
-        $viewData['title'] = $product->getName().' - Huellitas Pet Shop';
-        $viewData['subtitle'] = $product->getName().' - Product information';
+        $viewData['title'] = $product->getName().' - '.__('product.store_name');
+        $viewData['subtitle'] = __('product.subtitle_show', ['name' => $product->getName()]);
         $viewData['product'] = $product;
 
         return view('product.show')->with('viewData', $viewData);
-    }
-
-    public function create(): View
-    {
-        $viewData = [];
-        $viewData['title'] = 'Create product';
-        $viewData['subtitle'] = 'Creation form';
-
-        return view('product.create')->with('viewData', $viewData);
-    }
-
-    public function store(StoreProductRequest $request): RedirectResponse
-    {
-        try {
-            Product::create($request->only('name', 'price', 'stock', 'specie', 'description', 'category_id', 'image'));
-
-            return redirect()
-                ->route('product.index')
-                ->with('status', 'Item created successfully');
-        } catch (Throwable $e) {
-            return redirect()
-                ->route('product.index')
-                ->with('status', 'Failed to create item.');
-        }
-    }
-
-    public function destroy(string $id): RedirectResponse
-    {
-        $product = Product::findOrFail($id);
-        $product->delete();
-
-        return redirect()
-            ->route('product.index')
-            ->with('success', 'Item successfully deleted');
-    }
-
-    public function update(StoreProductRequest $request, string $id): RedirectResponse
-    {
-        $product = Product::findOrFail($id);
-        $validated = $request->validated();
-        $product->update($validated);
-
-        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
-    }
-
-    public function edit(string $id): View
-    {
-        $viewData = [];
-        $product = Product::findOrFail($id);
-        $viewData['title'] = 'Edit product';
-        $viewData['subtitle'] = 'Editing form';
-        $viewData['product'] = $product;
-
-        return view('product.edit')->with('viewData', $viewData);
     }
 }

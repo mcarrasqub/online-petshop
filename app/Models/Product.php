@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * $this->attributes['price'] - float - contains the product price
  * $this->attributes['stock'] - int - contains the product stock
  * $this->attributes['image'] - string - contains the product image path
- * $this->attributes['specie'] - string - contains the product specie (dog, cat, bird, fish, rabbit)
+ * $this->attributes['specie'] - string - contains the product specie (dog, cat, bird, fish, rabbit, all)
  * $this->attributes['description'] - string - contains the product description
  * $this->attributes['category_id'] - int - contains the category primary key (id)
  * $this->attributes['created_at'] - datetime - contains the product creation date

@@ -8,7 +8,6 @@ use App\Models\User;
 
 class ExampleTest extends TestCase
 {
-    
     use RefreshDatabase;
 
     /** @test */
@@ -21,7 +20,14 @@ class ExampleTest extends TestCase
     /** @test */
     public function redirect_to_admin_home_when_admin_visits_home()
     {
-        $admin = User::factory()->create(['is_admin' => true]);
+        $admin = new User([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
+            'is_admin' => true,
+        ]);
+        $admin->save();
+
         $response = $this->actingAs($admin)->get('/');
         $response->assertRedirect(route('admin.home.index'));
     }
@@ -29,7 +35,14 @@ class ExampleTest extends TestCase
     /** @test */
     public function redirect_to_product_index_when_user_visits_home()
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = new User([
+            'name' => 'Regular User',
+            'email' => 'user@example.com',
+            'password' => bcrypt('password'),
+            'is_admin' => false,
+        ]);
+        $user->save();
+
         $response = $this->actingAs($user)->get('/');
         $response->assertRedirect(route('product.index'));
     }

@@ -38,8 +38,17 @@
             </ul>
         </div>
         <div class="col content-grey">
-            <nav class="p-3 shadow text-end bg-dark text-white">
-                <span class="profile-font text-white">{{ __('admin.role_label') }}</span>
+            <nav class="p-3 shadow text-end bg-dark text-white d-flex justify-content-end align-items-center">
+                <div class="dropdown me-3">
+                    <a class="text-white text-decoration-none dropdown-toggle" href="#" id="languageDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ app()->getLocale() == 'en' ? 'English' : 'Español' }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdownAdmin">
+                        <li><a class="dropdown-item" href="{{ route('lang.switch', 'es') }}">Español</a></li>
+                        <li><a class="dropdown-item" href="{{ route('lang.switch', 'en') }}">English</a></li>
+                    </ul>
+                </div>
+                <span class="profile-font text-white me-2">{{ __('admin.role_label') }}</span>
                 <img class="img-profile rounded-circle" src="{{ asset('/img/undraw_profile.svg') }}" alt="{{ __('admin.role_label') }}" />
             </nav>
             <div class="g-0 m-5">

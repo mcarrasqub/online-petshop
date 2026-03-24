@@ -29,6 +29,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe"></i> {{ app()->getLocale() == 'en' ? 'English' : 'Español' }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item" href="{{ route('lang.switch', 'es') }}">Español</a></li>
+                            <li><a class="dropdown-item" href="{{ route('lang.switch', 'en') }}">English</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('orders.my') }}">{{ __('orders.nav_orders') }}</a>
                     </li>

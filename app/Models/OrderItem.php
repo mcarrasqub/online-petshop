@@ -5,6 +5,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * ORDER ITEMS ATTRIBUTES
@@ -31,77 +33,77 @@ class OrderItem extends Model
         'updated_at',
     ];
 
-    public function order()
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }
 
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUnits()
+    public function getUnits(): int
     {
         return $this->units;
     }
 
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
 
-    public function getSubtotal()
+    public function getSubtotal(): float
     {
         return $this->subtotal;
     }
 
-    public function getOrder()
+    public function getOrder(): Order
     {
         return $this->order;
     }
 
-    public function getProduct()
+    public function getProduct(): Product
     {
         return $this->product;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): Carbon
     {
         return $this->created_at;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): Carbon
     {
         return $this->updated_at;
     }
 
-    public function setUnits(int $units)
+    public function setUnits(int $units): void
     {
         $this->units = $units;
     }
 
-    public function setPrice(int $price)
+    public function setPrice(float $price): void
     {
         $this->price = $price;
     }
 
-    public function setSubtotal(int $subtotal)
+    public function setSubtotal(float $subtotal): void
     {
         $this->subtotal = $subtotal;
     }
 
-    public function setOrder($order)
+    public function setOrder(Order $order): void
     {
         $this->order()->associate($order);
     }
 
-    public function setProduct($product)
+    public function setProduct(Product $product): void
     {
         $this->product()->associate($product);
     }

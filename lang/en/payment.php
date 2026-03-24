@@ -3,6 +3,12 @@
 // edited by Sofia Gallo
 
 return [
+    'title_list' => 'Payments - Online Petshop',
+    'subtitle_list' => 'Payments list',
+    'title_show' => ':amount - Online Petshop',
+    'subtitle_show' => ':amount - Payment info',
+    'title_create' => 'Create payment - Online Petshop',
+    'subtitle_create' => 'Create a new payment',
     'title_success' => 'Payment successful',
     'heading_success' => 'Payment successful',
     'message_success' => 'Your payment was successfully processed.',

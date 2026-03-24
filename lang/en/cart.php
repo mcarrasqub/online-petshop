@@ -3,6 +3,13 @@
 // edited by David Garcia Zapata
 return [
     'nav_cart' => 'Cart',
+    'title_index' => 'Cart - Online Petshop',
+    'subtitle_index' => 'Shopping Cart',
+    'messages' => [
+        'added' => 'Product added to cart!',
+        'removed' => 'Product removed from cart!',
+        'cleared' => 'Cart cleared successfully!',
+    ],
     'labels' => [
         'product' => 'Product',
         'price' => 'Price',

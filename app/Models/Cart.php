@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Session;
 
 class Cart
 {
-    public static function getCart()
+    public static function getCart(): array
     {
         return Session::get('cart', []);
     }
 
-    public static function getTotal()
+    public static function getTotal(): float
     {
         $cart = self::getCart();
         $total = 0;
@@ -24,7 +24,7 @@ class Cart
         return $total;
     }
 
-    public static function add(Product $product)
+    public static function add(Product $product): void
     {
         $cart = self::getCart();
         $id = $product->getId();
@@ -43,7 +43,7 @@ class Cart
         Session::put('cart', $cart);
     }
 
-    public static function remove($id)
+    public static function remove(int $id): void
     {
         $cart = self::getCart();
 
@@ -53,7 +53,7 @@ class Cart
         }
     }
 
-    public static function clear()
+    public static function clear(): void
     {
         Session::forget('cart');
     }

@@ -5,6 +5,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * CATEGORIES ATTRIBUTES
@@ -21,32 +23,32 @@ class Category extends Model
         'updated_at',
     ];
 
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): Carbon
     {
         return $this->created_at;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): Carbon
     {
         return $this->updated_at;
     }
 
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }

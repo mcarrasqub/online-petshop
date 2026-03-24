@@ -15,8 +15,8 @@ class CartController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Cart - Online Petshop';
-        $viewData['subtitle'] = 'Shopping Cart';
+        $viewData['title'] = __('cart.title_index');
+        $viewData['subtitle'] = __('cart.subtitle_index');
         $viewData['cart'] = Cart::getCart();
         $viewData['total'] = Cart::getTotal();
 
@@ -28,20 +28,20 @@ class CartController extends Controller
         $product = Product::findOrFail($id);
         Cart::add($product);
 
-        return redirect()->back()->with('success', 'Product added to cart!');
+        return redirect()->back()->with('success', __('cart.messages.added'));
     }
 
     public function remove(int $id): RedirectResponse
     {
         Cart::remove($id);
 
-        return redirect()->route('cart.index')->with('success', 'Product removed from cart!');
+        return redirect()->route('cart.index')->with('success', __('cart.messages.removed'));
     }
 
     public function removeAll(): RedirectResponse
     {
         Cart::clear();
 
-        return redirect()->route('cart.index')->with('success', 'Cart cleared successfully!');
+        return redirect()->route('cart.index')->with('success', __('cart.messages.cleared'));
     }
 }

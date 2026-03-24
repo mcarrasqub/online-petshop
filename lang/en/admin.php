@@ -45,6 +45,10 @@ return [
 
     'products' => [
         'title' => 'Products',
+        'title_index' => 'Admin - Products',
+        'title_create' => 'Admin - Create product',
+        'title_show' => 'Admin - Product detail',
+        'title_edit' => 'Admin - Edit product',
         'list' => 'Products list',
         'create' => 'Create product',
         'edit' => 'Edit product',
@@ -54,6 +58,10 @@ return [
 
     'categories' => [
         'title' => 'Categories',
+        'title_index' => 'Admin - Categories',
+        'title_create' => 'Admin - Create category',
+        'title_show' => 'Admin - Category detail',
+        'title_edit' => 'Admin - Edit category',
         'list' => 'Categories list',
         'create' => 'Create category',
         'edit' => 'Edit category',
@@ -66,6 +74,12 @@ return [
         'confirm_delete_category' => 'Delete this category?',
         'no_image' => 'No image',
         'uncategorized' => 'Uncategorized',
+        'product_created' => 'Product created successfully.',
+        'product_updated' => 'Product updated successfully.',
+        'product_deleted' => 'Product deleted successfully.',
+        'category_created' => 'Category created successfully.',
+        'category_updated' => 'Category updated successfully.',
+        'category_deleted' => 'Category deleted successfully.',
     ],
 
     'placeholders' => [

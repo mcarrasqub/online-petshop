@@ -1,10 +1,13 @@
 <?php
-// Edited by David García Zapata
+
+// Edited by David García Zapata and Sofia Gallo
 
 namespace App\Http\Requests;
 
+use App\Models\Cart;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreOrderRequest extends FormRequest
 {
@@ -24,9 +27,17 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'total_price' => 'required|numeric',
-            'status' => 'required|string',
+            'address' => 'required|string|max:255',
+            'confirm_contact' => 'required|accepted',
         ];
+    }
+
+    public function withValidator($validator): void
+    {
+        $validator->after(function (Validator $validator) {
+            if (count(Cart::getCart()) === 0) {
+                $validator->errors()->add('cart', 'El carrito está vacío.');
+            }
+        });
     }
 }

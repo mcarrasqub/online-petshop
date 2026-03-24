@@ -1,10 +1,13 @@
 <?php
-//Edited by Sofia Gallo
+
+// Edited by Sofia Gallo
 
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -19,7 +22,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        login as traitLogin;
+    }
 
     /**
      * Where to redirect users after login.
@@ -37,5 +42,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        // Validation is handled by LoginRequest.
+        return $this->traitLogin($request);
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     */
+    protected function credentials(Request $request): array
+    {
+        return $request->only($this->username(), 'password');
     }
 }

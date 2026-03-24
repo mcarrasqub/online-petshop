@@ -1,5 +1,6 @@
 <?php
-// Edited by David García Zapata
+
+// Edited by David García Zapata and Sofia Gallo
 
 namespace App\Http\Requests;
 
@@ -25,6 +26,7 @@ class UpdateOrderRequest extends FormRequest
     {
         return [
             'status' => 'required|string',
+            'address' => 'required|string|max:255',
         ];
     }
 }

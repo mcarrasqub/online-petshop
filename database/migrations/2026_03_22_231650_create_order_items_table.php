@@ -1,4 +1,5 @@
 <?php
+
 // Edited by David García Zapata
 
 use Illuminate\Database\Migrations\Migration;
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('subtotal');
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            #$table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,5 +25,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('order_items');
     }
-
 };

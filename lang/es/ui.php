@@ -1,11 +1,14 @@
 <?php
 
+// edited by Sofia Gallo
+
 return [
     'login' => 'Iniciar sesión',
     'register' => 'Registrarse',
     'logout' => 'Cerrar sesión',
 
     'name' => 'Nombre',
+    'phone_number' => 'Número de teléfono',
     'email_address' => 'Correo electrónico',
     'password' => 'Contraseña',
     'confirm_password' => 'Confirmar contraseña',

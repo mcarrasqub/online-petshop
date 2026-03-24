@@ -1,0 +1,11 @@
+/*Edited by Sofia Gallo */
+
+body { font-family: DejaVu Sans, sans-serif; color: #222; font-size: 14px; }
+.header { margin-bottom: 20px; }
+.title { font-size: 22px; margin: 0; }
+.subtitle { color: #555; margin-top: 4px; }
+.card { border: 1px solid #ddd; border-radius: 6px; padding: 14px; margin-bottom: 14px; }
+.row { margin: 6px 0; }
+.label { display: inline-block; width: 180px; color: #444; }
+.value { font-weight: 600; }
+.footer { margin-top: 24px; color: #666; font-size: 12px; }

@@ -1,6 +1,6 @@
 <?php
-//edited by Sofia Gallo
 
+// edited by Sofia Gallo
 
 return [
     'login' => 'Login',
@@ -8,6 +8,7 @@ return [
     'logout' => 'Logout',
 
     'name' => 'Name',
+    'phone_number' => 'Phone Number',
     'email_address' => 'Email Address',
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',

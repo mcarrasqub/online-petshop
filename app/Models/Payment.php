@@ -1,4 +1,5 @@
 <?php
+
 // Edited by Sofia Gallo
 
 namespace App\Models;
@@ -7,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-
     /**
      * PAYMENT ATTRIBUTES
      * $this->attributes['id'] - int - contains the payment primary key (id)

@@ -18,7 +18,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * $this->attributes['created_at'] - datetime - contains the user creation date
  * $this->attributes['updated_at'] - datetime - contains the user update date
  */
-
 class User extends Authenticatable
 {
     /**

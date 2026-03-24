@@ -5,28 +5,14 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        if (Auth::user()->is_admin) {
-            return redirect()->route('admin.home.index');
-        }
-
-        return redirect()->route('product.index');
-    }
-
-    return redirect()->route('login');
-});
+Route::get('/', '\App\Http\Controllers\EntryController@root');
 
 Route::get('/lang/{locale}', '\App\Http\Controllers\LanguageController@switch')->name('lang.switch');
 
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function () {
-        return Auth::user()->is_admin
-            ? redirect()->route('admin.home.index')
-            : redirect()->route('product.index');
-    })->name('home');
+    Route::get('/home', '\App\Http\Controllers\EntryController@home')->name('home');
 
     Route::get('/products', '\App\Http\Controllers\ProductController@index')->name('product.index');
     Route::get('/products/{product}', '\App\Http\Controllers\ProductController@show')->name('product.show');

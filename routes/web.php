@@ -10,6 +10,7 @@ Route::get('/', function () {
         if (Auth::user()->is_admin) {
             return redirect()->route('admin.home.index');
         }
+
         return redirect()->route('product.index');
     }
 
@@ -34,13 +35,15 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cart/removeAll', '\App\Http\Controllers\CartController@removeAll')->name('cart.removeAll');
 
     Route::get('/orders', '\App\Http\Controllers\OrderController@index')->name('orders.index');
+    Route::get('/orders/my', '\App\Http\Controllers\OrderController@myOrders')->name('orders.my');
     Route::get('/orders/create', '\App\Http\Controllers\OrderController@create')->name('orders.create');
     Route::post('/orders', '\App\Http\Controllers\OrderController@store')->name('orders.store');
     Route::get('/orders/{order}', '\App\Http\Controllers\OrderController@show')->name('orders.show');
 
-    Route::get('/payment/create', '\App\Http\Controllers\PaymentController@create')->name('payment.create');
+    Route::get('/payment/{order}', '\App\Http\Controllers\PaymentController@index')->name('payment.index');
     Route::post('/payment', '\App\Http\Controllers\PaymentController@store')->name('payment.store');
     Route::get('/payment/{payment}/success', '\App\Http\Controllers\PaymentController@success')->name('payment.success');
+    Route::get('/payment/{payment}/receipt', '\App\Http\Controllers\PaymentController@receipt')->name('payment.receipt');
 });
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {

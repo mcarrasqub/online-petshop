@@ -53,7 +53,7 @@
                 @method('DELETE')
                 <button type="submit" class="btn btn-warning">{{ __('cart.labels.clear_cart') }}</button>
             </form>
-            <a href="{{ route('product.index') }}" class="btn btn-primary">{{ __('cart.labels.proceed_to_checkout') }}</a>
+            <a href="{{ route('orders.index') }}" class="btn btn-primary">Generar orden</a>
         </div>
     @else
         <p>{{ __('cart.labels.empty_cart') }}</p>

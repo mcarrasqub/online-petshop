@@ -1,1 +1,18 @@
 /* Created by Sofia Gallo */
+
+.app-navbar {
+	background-color: #ffc300;
+}
+
+.app-navbar-brand {
+	color: #687fdd;
+}
+
+.app-navbar-brand:hover,
+.app-navbar-brand:focus {
+	color: #687fdd;
+}
+
+.app-logout-link {
+	color: #fff;
+}

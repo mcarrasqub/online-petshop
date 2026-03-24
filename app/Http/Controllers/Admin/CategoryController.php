@@ -1,4 +1,5 @@
 <?php
+
 // Edited by Mariana Carrasquilla Botero
 
 namespace App\Http\Controllers\Admin;

@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('orders.index') }}">{{ __('orders.nav_orders') }}</a>
+                        <a class="nav-link active" href="{{ route('orders.my') }}">{{ __('orders.nav_orders') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('cart.index') }}">

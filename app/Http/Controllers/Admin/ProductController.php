@@ -1,13 +1,14 @@
 <?php
+
 // Edited by Mariana Carrasquilla Botero
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -34,11 +35,11 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        
+
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
         }
-        
+
         Product::create($data);
 
         return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
@@ -67,12 +68,12 @@ class ProductController extends Controller
     public function update(StoreProductRequest $request, Product $product): RedirectResponse
     {
         $data = $request->validated();
-        
+
         if ($request->hasFile('image')) {
             Storage::disk('public')->delete($product->image);
             $data['image'] = $request->file('image')->store('products', 'public');
         }
-        
+
         $product->update($data);
 
         return redirect()->route('admin.product.index')->with('success', 'Product updated successfully.');

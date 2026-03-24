@@ -1,5 +1,6 @@
 <?php
-//edited by David Garcia Zapata
+
+// edited by David Garcia Zapata
 return [
     'nav_cart' => 'Cart',
     'labels' => [

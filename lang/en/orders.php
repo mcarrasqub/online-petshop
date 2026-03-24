@@ -26,6 +26,31 @@ return [
     'confirm_delete' => 'Delete order?',
     'no_orders' => 'No orders registered.',
 
+    'checkout' => [
+        'title' => 'Create order',
+        'subtitle' => 'Complete your shipping address and confirm your contact information to continue to payment.',
+        'contact_data' => 'Contact details',
+        'name' => 'Name',
+        'email' => 'Email',
+        'phone' => 'Phone',
+        'not_registered' => 'Not registered',
+        'order_total' => 'Order total',
+        'shipping_address' => 'Shipping address',
+        'confirm_contact' => 'I confirm that my contact details are correct.',
+        'back_to_cart' => 'Back to cart',
+        'continue_to_payment' => 'Continue to payment',
+    ],
+
+    'my' => [
+        'title' => 'My orders',
+        'continue_shopping' => 'Continue shopping',
+        'payment' => 'Payment',
+        'date' => 'Date',
+        'paid' => 'Paid',
+        'pending_payment' => 'Pending',
+        'empty' => 'You have no registered orders.',
+    ],
+
     'fields' => [
         'id' => 'ID',
         'user_id' => 'User ID',

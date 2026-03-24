@@ -35,7 +35,7 @@ return [
         'name' => 'Nombre',
         'category' => 'Categoria',
         'price' => 'Precio',
-        'stock' => 'Stock',
+        'stock' => 'Unidades disponibles',
         'specie' => 'Especie',
         'description' => 'Descripcion',
         'image' => 'Imagen',
@@ -45,6 +45,10 @@ return [
 
     'products' => [
         'title' => 'Productos',
+        'title_index' => 'Admin - Productos',
+        'title_create' => 'Admin - Crear producto',
+        'title_show' => 'Admin - Detalle del producto',
+        'title_edit' => 'Admin - Editar producto',
         'list' => 'Listado de productos',
         'create' => 'Crear producto',
         'edit' => 'Editar producto',
@@ -54,6 +58,10 @@ return [
 
     'categories' => [
         'title' => 'Categorias',
+        'title_index' => 'Admin - Categorias',
+        'title_create' => 'Admin - Crear categoria',
+        'title_show' => 'Admin - Detalle de la categoria',
+        'title_edit' => 'Admin - Editar categoria',
         'list' => 'Listado de categorias',
         'create' => 'Crear categoria',
         'edit' => 'Editar categoria',
@@ -66,6 +74,12 @@ return [
         'confirm_delete_category' => '¿Eliminar esta categoria?',
         'no_image' => 'Sin imagen',
         'uncategorized' => 'Sin categoria',
+        'product_created' => 'Producto creado exitosamente.',
+        'product_updated' => 'Producto actualizado exitosamente.',
+        'product_deleted' => 'Producto eliminado exitosamente.',
+        'category_created' => 'Categoría creada exitosamente.',
+        'category_updated' => 'Categoría actualizada exitosamente.',
+        'category_deleted' => 'Categoría eliminada exitosamente.',
     ],
 
     'placeholders' => [

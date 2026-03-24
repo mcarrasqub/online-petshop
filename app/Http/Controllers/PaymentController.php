@@ -47,8 +47,8 @@ class PaymentController extends Controller
     public function list(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Pagos - Tienda de mascotas';
-        $viewData['subtitle'] = 'Lista de pagos';
+        $viewData['title'] = __('payment.title_list');
+        $viewData['subtitle'] = __('payment.subtitle_list');
         $viewData['payments'] = Payment::all();
 
         return view('payment.list')->with('viewData', $viewData);
@@ -58,8 +58,8 @@ class PaymentController extends Controller
     {
         $viewData = [];
         $payment = Payment::findOrFail($id);
-        $viewData['title'] = $payment['amount'].' - Tienda de mascotas';
-        $viewData['subtitle'] = $payment['amount'].' - Información del pago';
+        $viewData['title'] = __('payment.title_show', ['amount' => $payment['amount']]);
+        $viewData['subtitle'] = __('payment.subtitle_show', ['amount' => $payment['amount']]);
         $viewData['payment'] = $payment;
 
         return view('payment.show')->with('viewData', $viewData);
@@ -68,8 +68,8 @@ class PaymentController extends Controller
     public function create(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Crear Pago - Tienda de mascotas';
-        $viewData['subtitle'] = 'Crea un pago nuevo';
+        $viewData['title'] = __('payment.title_create');
+        $viewData['subtitle'] = __('payment.subtitle_create');
 
         return view('payment.create')->with('viewData', $viewData);
     }

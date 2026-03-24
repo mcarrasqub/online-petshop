@@ -3,6 +3,12 @@
 // edited by Sofia Gallo
 
 return [
+    'title_list' => 'Pagos - Huellitas',
+    'subtitle_list' => 'Lista de pagos',
+    'title_show' => ':amount - Huellitas',
+    'subtitle_show' => ':amount - Información del pago',
+    'title_create' => 'Crear Pago - Huellitas',
+    'subtitle_create' => 'Crea un pago nuevo',
     'title_success' => 'Pago exitoso',
     'heading_success' => 'Pago exitoso',
     'message_success' => 'Tu pago fue registrado correctamente.',

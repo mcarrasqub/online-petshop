@@ -1,15 +1,14 @@
 <?php
 
-// Edited by Mariana Carrasquilla Botero
+// Edited by Sofia Gallo
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class EntryController extends Controller
 {
-
     public function root(): RedirectResponse
     {
         if (Auth::check()) {

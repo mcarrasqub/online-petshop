@@ -65,4 +65,8 @@ return [
         'completed' => 'Completed',
         'cancelled' => 'Cancelled',
     ],
+    'messages' => [
+        'updated' => 'Order updated successfully.',
+        'deleted' => 'Order deleted successfully.',
+    ],
 ];

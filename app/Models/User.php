@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Carbon;
 
 /**
  * USERS ATTRIBUTES
@@ -94,37 +95,37 @@ class User extends Authenticatable
         return $this->is_admin;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?Carbon
     {
         return $this->created_at;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?Carbon
     {
         return $this->updated_at;
     }
 
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function setEmail($email): void
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    public function setPhoneNumber($phoneNumber): void
+    public function setPhoneNumber(?string $phoneNumber): void
     {
         $this->phone_number = $phoneNumber;
     }
 
-    public function setPassword($password): void
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
 
-    public function setIsAdmin($isAdmin): void
+    public function setIsAdmin(bool $isAdmin): void
     {
         $this->is_admin = $isAdmin;
     }

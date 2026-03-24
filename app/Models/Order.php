@@ -4,7 +4,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
 /**
  * ORDERS ATTRIBUTES
@@ -27,113 +32,115 @@ class Order extends Model
         'updated_at',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function orderItems()
+    public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function payment()
+    public function payment(): HasOne
     {
         return $this->hasOne(Payment::class);
     }
 
     // Getters
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getTotal()
+    public function getTotal(): float
     {
         return $this->total;
     }
 
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
 
-    public function getUser()
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function getOrderItems()
+    public function getOrderItems(): HasMany
     {
-        return $this->orderItems;
+        return $this->orderItems();
     }
 
-    public function getPayment()
+    public function getPayment(): Payment
     {
         return $this->payment;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): Carbon
     {
         return $this->created_at;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): Carbon
     {
         return $this->updated_at;
     }
 
     // Setters
-
-    public function setTotal($total)
+    public function setTotal(float $total): void
     {
         $this->total = $total;
     }
 
-    public function setStatus($status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    public function setAddress($address)
+    public function setAddress(string $address): void
     {
         $this->address = $address;
     }
 
-    public function setUser($user)
+    public function setUser(User $user): void
     {
         $this->user()->associate($user);
     }
 
-    // Custom Methods
-    public function calculateTotal()
-    {
-        $total = 0;
-        if ($this->orderItems) {
-            foreach ($this->orderItems as $item) {
-                // Assuming OrderItem has a getTotal() or price * quantity logic
-                // $total += $item->getTotal();
-            }
-        }
-        $this->total = $total;
-
-        return $this->total;
-    }
-
-    public function confirm()
+    public function confirm(): void
     {
         $this->status = 'Confirmed';
         $this->save();
     }
 
-    public function cancel()
+    public function cancel(): void
     {
         $this->status = 'Canceled';
         $this->save();
+    }
+
+    public static function createFromCart(int $userId, string $address): self
+    {
+        return self::create([
+            'user_id' => $userId,
+            'total' => Cart::getTotal(),
+            'status' => 'pending',
+            'address' => $address,
+        ]);
+    }
+
+    public static function getByUser(int $userId): Collection
+    {
+        return self::with('payment')
+            ->where('user_id', $userId)
+            ->latest()
+            ->get();
     }
 }

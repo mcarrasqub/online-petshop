@@ -16,8 +16,8 @@ class ProductController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Admin - Products';
-        $viewData['subtitle'] = 'Products list';
+        $viewData['title'] = __('admin.products.title_index');
+        $viewData['subtitle'] = __('admin.products.list');
         $viewData['products'] = Product::all();
 
         return view('admin.products.index')->with('viewData', $viewData);
@@ -26,8 +26,8 @@ class ProductController extends Controller
     public function create(): View
     {
         $viewData = [];
-        $viewData['title'] = 'Admin - Create product';
-        $viewData['subtitle'] = 'Create product';
+        $viewData['title'] = __('admin.products.title_create');
+        $viewData['subtitle'] = __('admin.products.create');
 
         return view('admin.products.create')->with('viewData', $viewData);
     }
@@ -42,14 +42,14 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
+        return redirect()->route('admin.product.index')->with('success', __('admin.messages.product_created'));
     }
 
     public function show(Product $product): View
     {
         $viewData = [];
-        $viewData['title'] = 'Admin - Product detail';
-        $viewData['subtitle'] = 'Product detail';
+        $viewData['title'] = __('admin.products.title_show');
+        $viewData['subtitle'] = __('admin.products.show');
         $viewData['product'] = $product;
 
         return view('admin.products.show')->with('viewData', $viewData);
@@ -58,8 +58,8 @@ class ProductController extends Controller
     public function edit(Product $product): View
     {
         $viewData = [];
-        $viewData['title'] = 'Admin - Edit product';
-        $viewData['subtitle'] = 'Edit product';
+        $viewData['title'] = __('admin.products.title_edit');
+        $viewData['subtitle'] = __('admin.products.edit');
         $viewData['product'] = $product;
 
         return view('admin.products.edit')->with('viewData', $viewData);
@@ -76,13 +76,13 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('admin.product.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('admin.product.index')->with('success', __('admin.messages.product_updated'));
     }
 
     public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
 
-        return redirect()->route('admin.product.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('admin.product.index')->with('success', __('admin.messages.product_deleted'));
     }
 }

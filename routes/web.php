@@ -17,6 +17,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/lang/{locale}', '\App\Http\Controllers\LanguageController@switch')->name('lang.switch');
+
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {

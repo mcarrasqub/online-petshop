@@ -15,11 +15,15 @@
         <p class="mb-4">{{ __('payment.message_success') }}</p>
 
         <h2 class="h5">{{ __('payment.section_payment') }}</h2>
+        @php
+            $methodKey = 'payment.methods.'.$payment->method;
+            $methodLabel = __($methodKey);
+        @endphp
         <ul class="list-group mb-4">
             <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.id') }}</span><strong>{{ $payment->id }}</strong></li>
             <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.amount') }}</span><strong>${{ number_format($payment->amount, 2) }}</strong></li>
             <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.date') }}</span><strong>{{ $payment->date }}</strong></li>
-            <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.method') }}</span><strong>{{ $payment->method }}</strong></li>
+            <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.method') }}</span><strong>{{ $methodLabel === $methodKey ? $payment->method : $methodLabel }}</strong></li>
         </ul>
 
         <h2 class="h5">{{ __('payment.section_order') }}</h2>
@@ -35,8 +39,9 @@
         @endif
 
         <div class="d-flex gap-2">
-            <a href="{{ route('orders.index') }}" class="btn btn-primary">{{ __('payment.btn_view_orders') }}</a>
-            <a href="{{ url('/') }}" class="btn btn-outline-secondary">{{ __('payment.btn_go_home') }}</a>
+            <a href="{{ route('payment.receipt', $payment) }}" class="btn btn-success">{{ __('payment.btn_download_receipt') }}</a>
+            <a href="{{ route('orders.my') }}" class="btn btn-primary">{{ __('payment.btn_view_orders') }}</a>
+            <a href="{{ route('home') }}" class="btn btn-outline-secondary">{{ __('payment.btn_go_home') }}</a>
         </div>
     </div>
 </div>

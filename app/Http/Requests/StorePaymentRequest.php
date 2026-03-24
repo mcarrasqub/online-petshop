@@ -28,7 +28,8 @@ class StorePaymentRequest extends FormRequest
             'order_id' => 'required|exists:orders,id',
             'amount' => 'required|integer|min:0',
             'date' => 'required|date',
-            'method' => 'required|string|max:255',
+            'method' => 'required|in:pse,credit_card,debit_card,nequi,daviplata',
+            'confirm_payment' => 'required|accepted',
         ];
     }
 }

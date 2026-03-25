@@ -43,5 +43,4 @@ class PaymentController extends Controller
 
         return $pdf->download('comprobante-pago-'.$payment->id.'.pdf');
     }
-
 }

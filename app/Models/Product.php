@@ -72,6 +72,19 @@ class Product extends Model
         return $this->image;
     }
 
+    public function getImageUrl(): ?string
+    {
+        if (! $this->image) {
+            return null;
+        }
+
+        if (str_starts_with($this->image, 'img/')) {
+            return asset($this->image);
+        }
+
+        return asset('storage/'.$this->image);
+    }
+
     public function getSpecie(): string
     {
         return $this->specie;

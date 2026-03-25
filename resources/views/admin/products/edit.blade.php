@@ -110,7 +110,7 @@
         @if($viewData['product']->getImage())
           <div class="mb-2">
             <img
-              src="{{ asset('storage/' . $viewData['product']->getImage()) }}"
+              src="{{ $viewData['product']->getImageUrl() }}"
               alt="{{ $viewData['product']->getName() }}"
               style="max-width: 120px;"
               class="img-thumbnail"

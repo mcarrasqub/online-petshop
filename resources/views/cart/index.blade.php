@@ -22,7 +22,7 @@
           <tr>
             <td>
               @if(isset($item['image']))
-                <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" style="width: 50px; height: 50px; object-fit: cover;" class="me-2">
+                <img src="{{ $item['image_url'] ?? (str_starts_with($item['image'], 'img/') ? asset($item['image']) : asset('storage/' . $item['image'])) }}" alt="{{ $item['name'] }}" style="width: 50px; height: 50px; object-fit: cover;" class="me-2">
               @endif
               {{ $item['name'] }}
             </td>

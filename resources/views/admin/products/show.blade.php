@@ -11,7 +11,7 @@
       <div class="col-md-4">
         @if($viewData['product']->getImage())
           <img
-            src="{{ asset('storage/' . $viewData['product']->getImage()) }}"
+            src="{{ $viewData['product']->getImageUrl() }}"
             alt="{{ $viewData['product']->getName() }}"
             class="img-fluid rounded"
           >

@@ -4,7 +4,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * PRODUCTS ATTRIBUTES
@@ -33,98 +37,120 @@ class Product extends Model
         'updated_at',
     ];
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function orderItems()
+    public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
 
-    public function getStock()
+    public function getStock(): int
     {
         return $this->stock;
     }
 
-    public function getImage()
+    public function getImage(): string
     {
         return $this->image;
     }
 
-    public function getSpecie()
+    public function getImageUrl(): ?string
+    {
+        if (! $this->image) {
+            return null;
+        }
+
+        if (str_starts_with($this->image, 'img/')) {
+            return asset($this->image);
+        }
+
+        return asset('storage/'.$this->image);
+    }
+
+    public function getSpecie(): string
     {
         return $this->specie;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getCategory()
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?Carbon
     {
         return $this->created_at;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?Carbon
     {
         return $this->updated_at;
     }
 
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function setPrice($price)
+    public function setPrice(float $price): void
     {
         $this->price = $price;
     }
 
-    public function setStock($stock)
+    public function setStock(int $stock): void
     {
         $this->stock = $stock;
     }
 
-    public function setImage($image)
+    public function setImage(?string $image): void
     {
         $this->image = $image;
     }
 
-    public function setSpecie($specie)
+    public function setSpecie(?string $specie): void
     {
         $this->specie = $specie;
     }
 
-    public function setDescription($description)
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    public function setCategory($category)
+    public function setCategory(Category $category): void
     {
         $this->category()->associate($category);
+    }
+
+    public static function search(?string $query, ?int $categoryId): Collection
+    {
+        return self::query()
+            ->when($query, fn ($b) => $b->where('name', 'like', "%{$query}%")
+                ->orWhere('description', 'like', "%{$query}%"))
+            ->when($categoryId, fn ($b) => $b->where('category_id', $categoryId))
+            ->get();
     }
 }

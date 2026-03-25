@@ -5,6 +5,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model
 {
@@ -15,13 +16,26 @@ class Payment extends Model
      * $this->attributes['date'] - date - contains the payment date
      * $this->attributes['method'] - string - contains the payment method
      * $this->attributes['order_id'] - int - contains the order primary key (id)
-     * $this->attributes[timestamps] - timestamp - contains the payment created_at and updated_at timestamps
+     * $this->attributes['created_at'] - datetime - contains the payment creation date
+     * $this->attributes['updated_at'] - datetime - contains the payment update date
      */
-    protected $fillable = ['amount', 'date', 'method', 'order_id'];
+    protected $fillable = [
+        'amount',
+        'date',
+        'method',
+        'order_id',
+        'created_at',
+        'updated_at',
+    ];
 
-    public function order()
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
     }
 
     public function getId(): int

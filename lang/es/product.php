@@ -13,7 +13,7 @@ return [
     'subtitle_show' => ':name - Detalles del producto',
     'labels' => [
         'price' => 'Precio',
-        'stock' => 'Stock',
+        'stock' => 'Unidades disponibles',
     ],
     'actions' => [
         'search' => 'Buscar',

@@ -3,6 +3,13 @@
 // edited by David Garcia Zapata
 return [
     'nav_cart' => 'Carrito',
+    'title_index' => 'Carrito - Huellitas',
+    'subtitle_index' => 'Carrito de Compras',
+    'messages' => [
+        'added' => '¡Producto agregado al carrito!',
+        'removed' => '¡Producto eliminado del carrito!',
+        'cleared' => '¡Carrito vaciado exitosamente!',
+    ],
     'labels' => [
         'product' => 'Producto',
         'price' => 'Precio',

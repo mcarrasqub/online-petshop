@@ -5,19 +5,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
-use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $cart = $request->session()->get('cart', []);
+        
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
         $viewData = [];
-        $viewData['total'] = Cart::getTotal();
+        $viewData['total'] = $total;
         $viewData['user'] = Auth::user();
 
         return view('orders.index')->with('viewData', $viewData);
@@ -30,10 +36,7 @@ class OrderController extends Controller
 
     public function myOrders(): View
     {
-        $orders = Order::with('payment')
-            ->where('user_id', Auth::id())
-            ->latest()
-            ->get();
+        $orders = Order::getByUser(Auth::id());
 
         return view('orders.my', compact('orders'));
     }
@@ -42,14 +45,9 @@ class OrderController extends Controller
     {
         $validated = $request->validated();
 
-        $order = Order::create([
-            'user_id' => Auth::id(),
-            'total' => Cart::getTotal(),
-            'status' => 'pending',
-            'address' => $validated['address'],
-        ]);
+        $cart = $request->session()->get('cart', []);
 
-        Cart::clear();
+        $order = Order::createFromCart(Auth::id(), $validated['address'], $cart);
 
         return redirect()->route('payment.index', $order->id);
     }
@@ -57,26 +55,5 @@ class OrderController extends Controller
     public function show(Order $order): View
     {
         return view('orders.show', compact('order'));
-    }
-
-    public function edit(Order $order): View
-    {
-        return view('orders.edit', compact('order'));
-    }
-
-    public function update(UpdateOrderRequest $request, Order $order): RedirectResponse
-    {
-        $validated = $request->validated();
-
-        $order->update($validated);
-
-        return redirect()->route('orders.index')->with('success', 'Order updated successfully.');
-    }
-
-    public function destroy(Order $order): RedirectResponse
-    {
-        $order->delete();
-
-        return redirect()->route('orders.index')->with('success', 'Order deleted successfully.');
     }
 }

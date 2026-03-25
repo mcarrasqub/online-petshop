@@ -43,42 +43,4 @@ class PaymentController extends Controller
 
         return $pdf->download('comprobante-pago-'.$payment->id.'.pdf');
     }
-
-    public function list(): View
-    {
-        $viewData = [];
-        $viewData['title'] = 'Pagos - Tienda de mascotas';
-        $viewData['subtitle'] = 'Lista de pagos';
-        $viewData['payments'] = Payment::all();
-
-        return view('payment.list')->with('viewData', $viewData);
-    }
-
-    public function show(string $id): View
-    {
-        $viewData = [];
-        $payment = Payment::findOrFail($id);
-        $viewData['title'] = $payment['amount'].' - Tienda de mascotas';
-        $viewData['subtitle'] = $payment['amount'].' - Información del pago';
-        $viewData['payment'] = $payment;
-
-        return view('payment.show')->with('viewData', $viewData);
-    }
-
-    public function create(): View
-    {
-        $viewData = [];
-        $viewData['title'] = 'Crear Pago - Tienda de mascotas';
-        $viewData['subtitle'] = 'Crea un pago nuevo';
-
-        return view('payment.create')->with('viewData', $viewData);
-    }
-
-    public function destroy(string $id): RedirectResponse
-    {
-        $payment = Payment::findOrFail($id);
-        $payment->delete();
-
-        return redirect()->route('payment.list');
-    }
 }

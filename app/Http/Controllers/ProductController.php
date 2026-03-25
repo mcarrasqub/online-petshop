@@ -12,23 +12,13 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $query = request('q');
+        $query = request('search');
         $categoryId = request('category_id');
-
-        $products = Product::query()
-            ->when($query, function ($builder) use ($query) {
-                $builder->where('name', 'like', '%'.$query.'%')
-                    ->orWhere('description', 'like', '%'.$query.'%');
-            })
-            ->when($categoryId, function ($builder) use ($categoryId) {
-                $builder->where('category_id', $categoryId);
-            })
-            ->get();
 
         $viewData = [];
         $viewData['title'] = __('product.title_index');
         $viewData['subtitle'] = __('product.subtitle_index');
-        $viewData['products'] = $products;
+        $viewData['products'] = Product::search($query, $categoryId);
         $viewData['categories'] = Category::orderBy('name')->get();
         $viewData['search'] = $query;
         $viewData['selectedCategory'] = $categoryId;

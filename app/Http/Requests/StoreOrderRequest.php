@@ -4,7 +4,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Cart;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
@@ -35,7 +34,9 @@ class StoreOrderRequest extends FormRequest
     public function withValidator($validator): void
     {
         $validator->after(function (Validator $validator) {
-            if (count(Cart::getCart()) === 0) {
+            $cart = $this->session()->get('cart', []);
+
+            if (count($cart) === 0) {
                 $validator->errors()->add('cart', 'El carrito está vacío.');
             }
         });

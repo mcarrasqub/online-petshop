@@ -5,18 +5,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
-use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $cart = $request->session()->get('cart', []);
+        
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
         $viewData = [];
-        $viewData['total'] = Cart::getTotal();
+        $viewData['total'] = $total;
         $viewData['user'] = Auth::user();
 
         return view('orders.index')->with('viewData', $viewData);
@@ -38,7 +45,9 @@ class OrderController extends Controller
     {
         $validated = $request->validated();
 
-        $order = Order::createFromCart(Auth::id(), $validated['address']);
+        $cart = $request->session()->get('cart', []);
+
+        $order = Order::createFromCart(Auth::id(), $validated['address'], $cart);
 
         return redirect()->route('payment.index', $order->id);
     }

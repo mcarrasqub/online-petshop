@@ -7,12 +7,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
+use App\Providers\ProductImageServiceProvider;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+    public function __construct(private readonly ProductImageServiceProvider $productImageService) {}
+
     public function index(): View
     {
         $viewData = [];
@@ -37,7 +39,7 @@ class ProductController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = $this->productImageService->store($request->file('image'));
         }
 
         Product::create($data);
@@ -70,8 +72,7 @@ class ProductController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($product->image);
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = $this->productImageService->replace($product->image, $request->file('image'));
         }
 
         $product->update($data);

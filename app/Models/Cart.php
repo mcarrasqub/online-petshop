@@ -37,6 +37,7 @@ class Cart
                 'quantity' => 1,
                 'price' => $product->getPrice(),
                 'image' => $product->getImage(),
+                'image_url' => $product->getImageUrl(),
             ];
         }
 

@@ -8,7 +8,7 @@ use App\Http\Requests\CartRequest;
 use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {

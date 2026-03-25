@@ -7,12 +7,13 @@
   <title>@yield('title', __('orders.app_name'))</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
 </head>
 <body class="bg-light">
 
-  <nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow-sm" style="background-color: #FFC300;">
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow-sm app-navbar">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="{{ url('/') }}" style="color:#687fdd;">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold app-navbar-brand" href="{{ url('/') }}">
         <img src="{{ asset('img/Huellitas.png') }}" alt="Huellitas Logo" height="80">
         Huellitas
       </a>
@@ -22,7 +23,7 @@
       <a class="navbar-brand font-weight-bold" href="{{ route('register') }}">{{ __('ui.register') }}</a>
       @else
       <form id="logout" action="{{ route('logout') }}" method="POST">
-        <a role="button" class="nav-link active" style="color:#fff;"
+        <a role="button" class="nav-link active app-logout-link"
           onclick="document.getElementById('logout').submit();">{{ __('ui.logout') }}</a>
         @csrf
       </form>

@@ -31,7 +31,7 @@ class CartController extends Controller
 
     public function add(CartRequest $request, int $id): RedirectResponse
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $cart = $request->session()->get('cart', []);
 
         if (isset($cart[$id])) {

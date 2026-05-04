@@ -52,8 +52,9 @@ class OrderController extends Controller
         return redirect()->route('payment.index', $order->id);
     }
 
-    public function show(Order $order): View
+    public function show(string $id): View
     {
+        $order = Order::findOrFail($id);
         return view('orders.show', compact('order'));
     }
 }

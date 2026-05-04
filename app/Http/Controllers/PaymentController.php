@@ -13,8 +13,9 @@ use Illuminate\View\View;
 
 class PaymentController extends Controller
 {
-    public function index(Order $order): View
+    public function index(string $id): View
     {
+        $order = Order::findOrFail($id);
         $order->load('user');
 
         return view('payment.index', compact('order'));
@@ -28,15 +29,17 @@ class PaymentController extends Controller
 
     }
 
-    public function success(Payment $payment): View
+    public function success(string $id): View
     {
+        $payment = Payment::findOrFail($id);
         $payment->load('order');
 
         return view('payment.success', compact('payment'));
     }
 
-    public function receipt(Payment $payment)
+    public function receipt(string $id)
     {
+        $payment = Payment::findOrFail($id);
         $payment->load('order.user');
 
         $pdf = Pdf::loadView('payment.receipt', compact('payment'));

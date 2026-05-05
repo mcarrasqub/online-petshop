@@ -67,7 +67,7 @@ class Product extends Model
         return $this->stock;
     }
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }

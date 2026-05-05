@@ -11,7 +11,7 @@ use App\Providers\ProductImageServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
     public function __construct(private readonly ProductImageServiceProvider $productImageService) {}
 

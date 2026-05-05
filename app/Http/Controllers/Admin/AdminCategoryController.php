@@ -10,7 +10,7 @@ use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class CategoryController extends Controller
+class AdminCategoryController extends Controller
 {
     public function index(): View
     {

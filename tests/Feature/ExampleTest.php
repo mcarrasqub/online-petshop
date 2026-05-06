@@ -14,10 +14,10 @@ class ExampleTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function guest_can_visit_home_page()
+    public function redirect_to_login_when_guest_visits_home()
     {
         $response = $this->get('/');
-        $response->assertStatus(200);
+        $response->assertRedirect(route('login'));
     }
 
 
@@ -35,7 +35,7 @@ class ExampleTest extends TestCase
         $admin->save();
 
         $response = $this->actingAs($admin)->get('/'); 
-        $response->assertStatus(200);
+        $response->assertRedirect(route('admin.home.index'));
     }
 
 
@@ -53,6 +53,7 @@ class ExampleTest extends TestCase
         $user->save();
 
         $response = $this->actingAs($user)->get('/');
-        $response->assertStatus(200);
+        $response->assertRedirect(route('product.index'));
     }
 }
+

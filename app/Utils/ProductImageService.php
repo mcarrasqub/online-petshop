@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Providers;
+namespace App\Utils;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class ProductImageServiceProvider
+class ProductImageService
 {
     public function store(UploadedFile $image): string
     {

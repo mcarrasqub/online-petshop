@@ -7,13 +7,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
-use App\Providers\ProductImageServiceProvider;
+use App\Utils\ProductImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AdminProductController extends Controller
 {
-    public function __construct(private readonly ProductImageServiceProvider $productImageService) {}
+    private readonly ProductImageService $productImageService;
+
+    public function __construct(ProductImageService $productImageService)
+    {
+        $this->productImageService = $productImageService;
+    }
 
     public function index(): View
     {

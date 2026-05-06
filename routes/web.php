@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/lang/{locale}', '\App\Http\Controllers\LanguageController@switch')->name('lang.switch');
 
-Route::get('/', '\App\Http\Controllers\HomeController@index')->name('home.index');
-
-Route::get('/products', '\App\Http\Controllers\ProductController@index')->name('product.index');
-Route::get('/products/{product}', '\App\Http\Controllers\ProductController@show')->name('product.show');
 
 Route::middleware('auth')->group(function () {
+Route::get('/', '\App\Http\Controllers\HomeController@index')->name('home.index');
+Route::get('/products', '\App\Http\Controllers\ProductController@index')->name('product.index');
+Route::get('/products/{product}', '\App\Http\Controllers\ProductController@show')->name('product.show');
 Route::get('/cart', '\App\Http\Controllers\CartController@index')->name('cart.index');
 Route::post('/cart/add/{id}', '\App\Http\Controllers\CartController@add')->name('cart.add');
 Route::delete('/cart/remove/{id}', '\App\Http\Controllers\CartController@remove')->name('cart.remove');

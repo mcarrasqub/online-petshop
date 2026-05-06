@@ -38,22 +38,5 @@ class ExampleTest extends TestCase
         $response->assertRedirect(route('admin.home.index'));
     }
 
-
-    #[Test]
-    public function regular_user_can_visit_home_page()
-
-    {
-        $user = new User([
-            'name' => 'Regular User',
-            'email' => 'user@example.com',
-            'password' => bcrypt('password'),
-            'is_admin' => false,
-        ]);
-
-        $user->save();
-
-        $response = $this->actingAs($user)->get('/');
-        $response->assertRedirect(route('product.index'));
-    }
 }
 

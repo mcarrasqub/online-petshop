@@ -34,11 +34,13 @@ class OrderController extends Controller
         return View('orders.create');
     }
 
-    public function myOrders(): View
+    public function list(): View
     {
-        $orders = Order::getByUser(Auth::id());
+        $viewData = [];
+        $viewData['title'] = __('orders.my.title');
+        $viewData['orders'] = Order::getByUser(Auth::id());
 
-        return view('orders.my', compact('orders'));
+        return view('orders.list')->with('viewData', $viewData);
     }
 
     public function store(StoreOrderRequest $request): RedirectResponse
@@ -54,7 +56,12 @@ class OrderController extends Controller
 
     public function show(string $id): View
     {
-        $order = Order::findOrFail($id);
-        return view('orders.show', compact('order'));
+        $order = Order::with('orderItems.product')->findOrFail($id);
+
+        $viewData = [];
+        $viewData['title'] = __('orders.title_show');
+        $viewData['order'] = $order;
+
+        return view('orders.show')->with('viewData', $viewData);
     }
 }

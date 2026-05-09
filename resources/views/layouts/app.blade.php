@@ -46,7 +46,7 @@
             <a class="nav-link active" href="{{ route('product.index') }}">{{ __('product.nav_products') }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="{{ route('orders.my') }}">{{ __('orders.nav_orders') }}</a>
+            <a class="nav-link active" href="{{ route('orders.list') }}">{{ __('orders.nav_orders') }}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{{ route('cart.index') }}">

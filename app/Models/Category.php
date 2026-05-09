@@ -4,9 +4,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 
 /**
  * CATEGORIES ATTRIBUTES
@@ -14,6 +14,9 @@ use Illuminate\Support\Carbon;
  * $this->attributes['name'] - string - contains the category name
  * $this->attributes['created_at'] - datetime - contains the category creation date
  * $this->attributes['updated_at'] - datetime - contains the category update date
+ *
+ * RELATIONSHIPS
+ * $this->products - Product[] - contains the category products
  */
 class Category extends Model
 {
@@ -30,26 +33,31 @@ class Category extends Model
 
     public function getId(): int
     {
-        return $this->id;
+        return $this->attributes['id'];
     }
 
     public function getName(): string
     {
-        return $this->name;
-    }
-
-    public function getCreatedAt(): Carbon
-    {
-        return $this->created_at;
-    }
-
-    public function getUpdatedAt(): Carbon
-    {
-        return $this->updated_at;
+        return $this->attributes['name'];
     }
 
     public function setName(string $name): void
     {
-        $this->name = $name;
+        $this->attributes['name'] = $name;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->attributes['updated_at'];
+    }
+
+    public function getProducts(): Collection
+    {
+        return $this->products;
     }
 }

@@ -7,18 +7,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * PAYMENT ATTRIBUTES
+ * $this->attributes['id'] - int - contains the payment primary key (id)
+ * $this->attributes['amount'] - int - contains the payment amount
+ * $this->attributes['date'] - date - contains the payment date
+ * $this->attributes['method'] - string - contains the payment method
+ * $this->attributes['order_id'] - int - contains the order primary key (id)
+ * $this->attributes['created_at'] - datetime - contains the payment creation date
+ * $this->attributes['updated_at'] - datetime - contains the payment update date
+ *
+ * RELATIONSHIPS
+ * $this->order - Order - contains the payment order
+ */
 class Payment extends Model
 {
-    /**
-     * PAYMENT ATTRIBUTES
-     * $this->attributes['id'] - int - contains the payment primary key (id)
-     * $this->attributes['amount'] - int - contains the payment amount
-     * $this->attributes['date'] - date - contains the payment date
-     * $this->attributes['method'] - string - contains the payment method
-     * $this->attributes['order_id'] - int - contains the order primary key (id)
-     * $this->attributes['created_at'] - datetime - contains the payment creation date
-     * $this->attributes['updated_at'] - datetime - contains the payment update date
-     */
     protected $fillable = [
         'amount',
         'date',
@@ -33,19 +36,9 @@ class Payment extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function getOrder(): ?Order
-    {
-        return $this->order;
-    }
-
     public function getId(): int
     {
         return $this->attributes['id'];
-    }
-
-    public function setId(int $id): void
-    {
-        $this->attributes['id'] = $id;
     }
 
     public function getAmount(): int
@@ -78,13 +71,23 @@ class Payment extends Model
         $this->attributes['method'] = $method;
     }
 
-    public function getCreatedAt(): string
+    public function getOrderId(): int
+    {
+        return $this->attributes['order_id'];
+    }
+
+    public function getCreatedAt(): ?string
     {
         return $this->attributes['created_at'];
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): ?string
     {
         return $this->attributes['updated_at'];
+    }
+
+    public function getOrder(): Order
+    {
+        return $this->order;
     }
 }

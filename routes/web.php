@@ -19,7 +19,7 @@ Route::delete('/cart/remove/{id}', '\App\Http\Controllers\CartController@remove'
 Route::delete('/cart/removeAll', '\App\Http\Controllers\CartController@removeAll')->name('cart.removeAll');
 
 Route::get('/orders', '\App\Http\Controllers\OrderController@index')->name('orders.index');
-Route::get('/orders/my', '\App\Http\Controllers\OrderController@myOrders')->name('orders.my');
+Route::get('/orders/list', '\App\Http\Controllers\OrderController@list')->name('orders.list');
 Route::get('/orders/create', '\App\Http\Controllers\OrderController@create')->name('orders.create');
 Route::post('/orders', '\App\Http\Controllers\OrderController@store')->name('orders.store');
 Route::get('/orders/{order}', '\App\Http\Controllers\OrderController@show')->name('orders.show');

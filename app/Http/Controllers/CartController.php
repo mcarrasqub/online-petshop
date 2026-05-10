@@ -8,7 +8,7 @@ use App\Http\Requests\CartRequest;
 use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -31,7 +31,7 @@ class CartController extends Controller
 
     public function add(CartRequest $request, int $id): RedirectResponse
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $cart = $request->session()->get('cart', []);
 
         if (isset($cart[$id])) {

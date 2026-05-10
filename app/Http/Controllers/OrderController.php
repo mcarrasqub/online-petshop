@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function index(Request $request): View
     {
         $cart = $request->session()->get('cart', []);
-        
+
         $total = 0;
         foreach ($cart as $item) {
             $total += $item['price'] * $item['quantity'];
@@ -34,11 +34,13 @@ class OrderController extends Controller
         return View('orders.create');
     }
 
-    public function myOrders(): View
+    public function list(): View
     {
-        $orders = Order::getByUser(Auth::id());
+        $viewData = [];
+        $viewData['title'] = __('orders.my.title');
+        $viewData['orders'] = Order::getByUser(Auth::id());
 
-        return view('orders.my', compact('orders'));
+        return view('orders.list')->with('viewData', $viewData);
     }
 
     public function store(StoreOrderRequest $request): RedirectResponse
@@ -52,8 +54,14 @@ class OrderController extends Controller
         return redirect()->route('payment.index', $order->id);
     }
 
-    public function show(Order $order): View
+    public function show(string $id): View
     {
-        return view('orders.show', compact('order'));
+        $order = Order::with('orderItems.product')->findOrFail($id);
+
+        $viewData = [];
+        $viewData['title'] = __('orders.title_show');
+        $viewData['order'] = $order;
+
+        return view('orders.show')->with('viewData', $viewData);
     }
 }

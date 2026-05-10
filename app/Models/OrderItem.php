@@ -6,7 +6,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 
 /**
  * ORDER ITEMS ATTRIBUTES
@@ -14,10 +13,14 @@ use Illuminate\Support\Carbon;
  * $this->attributes['units'] - int - contains the order item units
  * $this->attributes['price'] - float - contains the order item price
  * $this->attributes['subtotal'] - float - contains the order item subtotal
- * $this->attributes['order_id'] - int - contains the order primary key (id)
  * $this->attributes['product_id'] - int - contains the product primary key (id)
+ * $this->attributes['order_id'] - int - contains the order primary key (id)
  * $this->attributes['created_at'] - datetime - contains the order item creation date
  * $this->attributes['updated_at'] - datetime - contains the order item update date
+ *
+ * RELATIONSHIPS
+ * $this->product - Product - contains the order item product
+ * $this->order - Order - contains the order item order
  */
 class OrderItem extends Model
 {
@@ -27,45 +30,75 @@ class OrderItem extends Model
         'units',
         'price',
         'subtotal',
-        'order_id',
         'product_id',
+        'order_id',
         'created_at',
         'updated_at',
     ];
-
-    public function order(): BelongsTo
-    {
-        return $this->belongsTo(Order::class);
-    }
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
     public function getId(): int
     {
-        return $this->id;
+        return $this->attributes['id'];
     }
 
     public function getUnits(): int
     {
-        return $this->units;
+        return $this->attributes['units'];
+    }
+
+    public function setUnits(int $units): void
+    {
+        $this->attributes['units'] = $units;
     }
 
     public function getPrice(): float
     {
-        return $this->price;
+        return $this->attributes['price'];
+    }
+
+    public function setPrice(float $price): void
+    {
+        $this->attributes['price'] = $price;
     }
 
     public function getSubtotal(): float
     {
-        return $this->subtotal;
+        return $this->attributes['subtotal'];
     }
 
-    public function getOrder(): Order
+    public function setSubtotal(float $subtotal): void
     {
-        return $this->order;
+        $this->attributes['subtotal'] = $subtotal;
+    }
+
+    public function getProductId(): int
+    {
+        return $this->attributes['product_id'];
+    }
+
+    public function getOrderId(): int
+    {
+        return $this->attributes['order_id'];
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->attributes['updated_at'];
     }
 
     public function getProduct(): Product
@@ -73,38 +106,18 @@ class OrderItem extends Model
         return $this->product;
     }
 
-    public function getCreatedAt(): Carbon
+    public function setProduct(Product $product): void
     {
-        return $this->created_at;
+        $this->product()->associate($product);
     }
 
-    public function getUpdatedAt(): Carbon
+    public function getOrder(): Order
     {
-        return $this->updated_at;
-    }
-
-    public function setUnits(int $units): void
-    {
-        $this->units = $units;
-    }
-
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
-    }
-
-    public function setSubtotal(float $subtotal): void
-    {
-        $this->subtotal = $subtotal;
+        return $this->order;
     }
 
     public function setOrder(Order $order): void
     {
         $this->order()->associate($order);
-    }
-
-    public function setProduct(Product $product): void
-    {
-        $this->product()->associate($product);
     }
 }

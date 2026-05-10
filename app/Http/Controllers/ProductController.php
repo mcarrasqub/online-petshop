@@ -26,8 +26,9 @@ class ProductController extends Controller
         return view('product.index')->with('viewData', $viewData);
     }
 
-    public function show(Product $product): View
+    public function show(string $id): View
     {
+        $product = Product::findOrFail($id);
         $viewData = [];
         $viewData['title'] = $product->getName().' - '.__('product.store_name');
         $viewData['subtitle'] = __('product.subtitle_show', ['name' => $product->getName()]);

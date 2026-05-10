@@ -10,6 +10,7 @@ return [
     'store_name' => 'Huellitas Pet Shop',
     'title_index' => 'Products - Huellitas Pet Shop',
     'subtitle_index' => 'Catalog',
+    'nav_products' => 'Products',
     'subtitle_show' => ':name - Product details',
     'labels' => [
         'price' => 'Price',

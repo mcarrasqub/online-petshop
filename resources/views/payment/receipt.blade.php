@@ -7,7 +7,7 @@
 </head>
 <body>
   @php
-    $methodKey = 'payment.methods.'.$payment->getMethod();
+    $methodKey = 'payment.methods.'.$viewData['payment']->getMethod();
     $methodLabel = __($methodKey);
   @endphp
   <div class="header">
@@ -16,18 +16,18 @@
   </div>
 
   <div class="card">
-    <div class="row"><span class="label">{{ __('payment.receipt.payment_number') }}</span><span class="value">{{ $payment->getId() }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.receipt.payment_date') }}</span><span class="value">{{ $payment->getDate() }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.fields.method') }}</span><span class="value">{{ $methodLabel === $methodKey ? $payment->getMethod() : $methodLabel }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.fields.amount') }}</span><span class="value">${{ number_format($payment->getAmount(), 2) }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.receipt.payment_number') }}</span><span class="value">{{ $viewData['payment']->getId() }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.receipt.payment_date') }}</span><span class="value">{{ $viewData['payment']->getDate() }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.fields.method') }}</span><span class="value">{{ $methodLabel === $methodKey ? $viewData['payment']->getMethod() : $methodLabel }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.fields.amount') }}</span><span class="value">${{ number_format($viewData['payment']->getAmount(), 2) }}</span></div>
   </div>
 
   <div class="card">
-    <div class="row"><span class="label">{{ __('payment.fields.order_number') }}</span><span class="value">{{ $payment->getOrder()?->getId() }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.receipt.customer') }}</span><span class="value">{{ $payment->getOrder()?->getUser()?->getName() }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.receipt.email') }}</span><span class="value">{{ $payment->getOrder()?->getUser()?->getEmail() }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.fields.address') }}</span><span class="value">{{ $payment->getOrder()?->getAddress() }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.fields.status') }}</span><span class="value">{{ __('orders.status.' . $payment->getOrder()?->getStatus()) }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.fields.order_number') }}</span><span class="value">{{ $viewData['payment']->getOrder()?->getId() }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.receipt.customer') }}</span><span class="value">{{ $viewData['payment']->getOrder()?->getUser()?->getName() }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.receipt.email') }}</span><span class="value">{{ $viewData['payment']->getOrder()?->getUser()?->getEmail() }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.fields.address') }}</span><span class="value">{{ $viewData['payment']->getOrder()?->getAddress() }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.fields.status') }}</span><span class="value">{{ __('orders.status.' . $viewData['payment']->getOrder()?->getStatus()) }}</span></div>
   </div>
 
   <div class="footer">

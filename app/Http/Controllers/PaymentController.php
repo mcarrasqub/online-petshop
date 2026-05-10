@@ -13,34 +13,45 @@ use Illuminate\View\View;
 
 class PaymentController extends Controller
 {
-    public function index(Order $order): View
+    public function index(string $id): View
     {
+        $order = Order::findOrFail($id);
         $order->load('user');
 
-        return view('payment.index', compact('order'));
+        $viewData = [];
+        $viewData['title'] = __('payment.title_index');
+        $viewData['order'] = $order;
+
+        return view('payment.index')->with('viewData', $viewData);
     }
 
     public function store(StorePaymentRequest $request): RedirectResponse
     {
         $payment = Payment::create($request->validated());
 
-        return redirect()->route('payment.success', $payment);
-
+        return redirect()->route('payment.success', $payment->getId());
     }
 
-    public function success(Payment $payment): View
+    public function success(string $id): View
     {
-        $payment->load('order');
+        $payment = Payment::with('order')->findOrFail($id);
 
-        return view('payment.success', compact('payment'));
+        $viewData = [];
+        $viewData['title'] = __('payment.title_success');
+        $viewData['payment'] = $payment;
+
+        return view('payment.success')->with('viewData', $viewData);
     }
 
-    public function receipt(Payment $payment)
+    public function receipt(string $id)
     {
-        $payment->load('order.user');
+        $payment = Payment::with('order.user')->findOrFail($id);
 
-        $pdf = Pdf::loadView('payment.receipt', compact('payment'));
+        $viewData = [];
+        $viewData['payment'] = $payment;
 
-        return $pdf->download('comprobante-pago-'.$payment->id.'.pdf');
+        $pdf = Pdf::loadView('payment.receipt', compact('viewData'));
+
+        return $pdf->download('comprobante-pago-'.$payment->getId().'.pdf');
     }
 }

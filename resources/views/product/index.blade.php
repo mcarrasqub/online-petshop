@@ -20,8 +20,8 @@
       <select name="category_id" class="form-select">
         <option value="">{{ __('product.all_categories') }}</option>
         @foreach(($viewData['categories'] ?? []) as $category)
-          <option value="{{ $category->id }}" @selected(($viewData['selectedCategory'] ?? null) == $category->id)>
-            {{ $category->name }}
+          <option value="{{ $category->getId() }}" @selected(($viewData['selectedCategory'] ?? null) == $category->getId())>
+            {{ $category->getName() }}
           </option>
         @endforeach
       </select>

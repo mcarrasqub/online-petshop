@@ -13,12 +13,7 @@ use Illuminate\View\View;
 
 class AdminProductController extends Controller
 {
-    private readonly ProductImageService $productImageService;
-
-    public function __construct(ProductImageService $productImageService)
-    {
-        $this->productImageService = $productImageService;
-    }
+    public function __construct(private readonly ProductImageService $productImageService) {}
 
     public function index(): View
     {
@@ -52,7 +47,7 @@ class AdminProductController extends Controller
         return redirect()->route('admin.product.index')->with('success', __('admin.messages.product_created'));
     }
 
-    public function show(string $id): View
+    public function show(int $id): View
     {
         $product = Product::findOrFail($id);
         $viewData = [];
@@ -63,7 +58,7 @@ class AdminProductController extends Controller
         return view('admin.products.show')->with('viewData', $viewData);
     }
 
-    public function edit(string $id): View
+    public function edit(int $id): View
     {
         $product = Product::findOrFail($id);
         $viewData = [];
@@ -74,13 +69,13 @@ class AdminProductController extends Controller
         return view('admin.products.edit')->with('viewData', $viewData);
     }
 
-    public function update(StoreProductRequest $request, string $id): RedirectResponse
+    public function update(StoreProductRequest $request, int $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->productImageService->replace($product->image, $request->file('image'));
+            $data['image'] = $this->productImageService->replace($product->getImage(), $request->file('image'));
         }
 
         $product->update($data);
@@ -88,7 +83,7 @@ class AdminProductController extends Controller
         return redirect()->route('admin.product.index')->with('success', __('admin.messages.product_updated'));
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $product->delete();

@@ -7,6 +7,7 @@ return [
     'subtitle_index' => 'Carrito de Compras',
     'messages' => [
         'added' => '¡Producto agregado al carrito!',
+        'decreased' => '¡Unidad descontada del carrito!',
         'removed' => '¡Producto eliminado del carrito!',
         'cleared' => '¡Carrito vaciado exitosamente!',
     ],

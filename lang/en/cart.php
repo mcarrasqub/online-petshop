@@ -7,6 +7,7 @@ return [
     'subtitle_index' => 'Shopping Cart',
     'messages' => [
         'added' => 'Product added to cart!',
+        'decreased' => 'Product unit removed from cart!',
         'removed' => 'Product removed from cart!',
         'cleared' => 'Cart cleared successfully!',
     ],

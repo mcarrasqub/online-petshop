@@ -8,14 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductImageService
 {
+
     public function store(UploadedFile $image): string
     {
-        File::ensureDirectoryExists(public_path('img/products'));
-
-        $imageName = $image->hashName();
-        $image->move(public_path('img/products'), $imageName);
-
-        return 'img/products/'.$imageName;
+        return $image->store('products', 'gcs');
     }
 
     public function replace(?string $currentPath, UploadedFile $newImage): string
@@ -32,11 +28,12 @@ class ProductImageService
         }
 
         if (str_starts_with($path, 'img/')) {
-            File::delete(public_path($path));
-
+            if (File::exists(public_path($path))) {
+                File::delete(public_path($path));
+            }
             return;
         }
 
-        Storage::disk('public')->delete($path);
+        Storage::disk('gcs')->delete($path);
     }
 }

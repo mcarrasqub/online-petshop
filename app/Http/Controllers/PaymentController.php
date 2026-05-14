@@ -15,8 +15,7 @@ class PaymentController extends Controller
 {
     public function index(string $id): View
     {
-        $order = Order::findOrFail($id);
-        $order->load('user');
+        $order = Order::with('user')->findOrFail($id);
 
         $viewData = [];
         $viewData['title'] = __('payment.title_index');

@@ -133,32 +133,6 @@ class Order extends Model
         $this->save();
     }
 
-    public static function createFromCart(int $userId, string $address, array $cart): self
-    {
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        $order = self::create([
-            'user_id' => $userId,
-            'total' => $total,
-            'status' => 'pending',
-            'address' => $address,
-        ]);
-
-        foreach ($cart as $productId => $item) {
-            OrderItem::create([
-                'units' => $item['quantity'],
-                'price' => $item['price'],
-                'subtotal' => $item['price'] * $item['quantity'],
-                'order_id' => $order->getId(),
-                'product_id' => $productId,
-            ]);
-        }
-
-        return $order;
-    }
 
     public static function getByUser(int $userId): Collection
     {

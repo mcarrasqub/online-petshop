@@ -15,6 +15,7 @@ Route::get('/products', '\App\Http\Controllers\ProductController@index')->name('
 Route::get('/products/{product}', '\App\Http\Controllers\ProductController@show')->name('product.show');
 Route::get('/cart', '\App\Http\Controllers\CartController@index')->name('cart.index');
 Route::post('/cart/add/{id}', '\App\Http\Controllers\CartController@add')->name('cart.add');
+Route::post('/cart/decrease/{id}', '\App\Http\Controllers\CartController@decrease')->name('cart.decrease');
 Route::delete('/cart/remove/{id}', '\App\Http\Controllers\CartController@remove')->name('cart.remove');
 Route::delete('/cart/removeAll', '\App\Http\Controllers\CartController@removeAll')->name('cart.removeAll');
 

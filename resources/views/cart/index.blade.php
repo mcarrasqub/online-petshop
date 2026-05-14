@@ -27,7 +27,19 @@
               {{ $item['name'] }}
             </td>
             <td>${{ number_format($item['price'], 2) }}</td>
-            <td>{{ $item['quantity'] }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <form action="{{ route('cart.decrease', $id) }}" method="POST" class="m-0">
+                  @csrf
+                  <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
+                </form>
+                <span class="mx-2">{{ $item['quantity'] }}</span>
+                <form action="{{ route('cart.add', $id) }}" method="POST" class="m-0">
+                  @csrf
+                  <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
+                </form>
+              </div>
+            </td>
             <td>${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
             <td>
               <form action="{{ route('cart.remove', $id) }}" method="POST">

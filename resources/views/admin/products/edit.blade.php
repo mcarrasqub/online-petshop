@@ -30,12 +30,12 @@
         <label for="category_id" class="form-label">{{ __('admin.fields.category') }}</label>
         <select id="category_id" name="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
           <option value="">{{ __('admin.placeholders.select_category') }}</option>
-          @foreach(\App\Models\Category::orderBy('name')->get() as $category)
+          @foreach($viewData['categories'] as $category)
             <option
-              value="{{ $category->id }}"
-              @selected(old('category_id', $viewData['product']->category_id) == $category->id)
+              value="{{ $category->getId() }}"
+              @selected(old('category_id', $viewData['product']->getCategoryId()) == $category->getId())
             >
-              {{ $category->name }}
+              {{ $category->getName() }}
             </option>
           @endforeach
         </select>

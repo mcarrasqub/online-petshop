@@ -133,7 +133,6 @@ class Order extends Model
         $this->save();
     }
 
-
     public static function getByUser(int $userId): Collection
     {
         return self::with('payment')

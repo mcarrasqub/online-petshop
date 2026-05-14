@@ -1,6 +1,6 @@
 <?php
 
-//Edited by David García Zapata
+// Edited by David García Zapata
 
 namespace App\Services;
 

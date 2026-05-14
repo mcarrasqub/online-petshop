@@ -13,7 +13,7 @@ class OrderService
     {
         $total = 0;
         foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
+            $total += $item->getSubtotal();
         }
 
         $order = Order::create([
@@ -25,9 +25,9 @@ class OrderService
 
         foreach ($cart as $productId => $item) {
             OrderItem::create([
-                'units' => $item['quantity'],
-                'price' => $item['price'],
-                'subtotal' => $item['price'] * $item['quantity'],
+                'units' => $item->getQuantity(),
+                'price' => $item->getPrice(),
+                'subtotal' => $item->getSubtotal(),
                 'order_id' => $order->getId(),
                 'product_id' => $productId,
             ]);

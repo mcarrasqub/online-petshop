@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
+use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 class ConfirmPasswordController extends Controller
 {
@@ -27,7 +29,7 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -37,5 +39,18 @@ class ConfirmPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    /**
+     * Display the password confirmation view.
+     */
+    public function showConfirmForm(): View
+    {
+        $viewData = [];
+        $viewData['title'] = __('ui.confirm_password');
+        $viewData['subtitle'] = __('ui.please_confirm_password_before_continuing');
+        $viewData['forgotPasswordRoute'] = Route::has('password.request') ? route('password.request') : null;
+
+        return view('auth.passwords.confirm')->with('viewData', $viewData);
     }
 }

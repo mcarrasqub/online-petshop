@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * PRODUCTS ATTRIBUTES
@@ -105,7 +106,7 @@ class Product extends Model
             return asset($this->image);
         }
 
-        return asset('storage/'.$this->image);
+        return Storage::disk('gcs')->url($this->image);
     }
 
     public function getSpecie(): string

@@ -18,6 +18,7 @@ class AdminCategoryController extends Controller
         $viewData['title'] = __('admin.categories.title_index');
         $viewData['subtitle'] = __('admin.categories.list');
         $viewData['categories'] = Category::all();
+        $viewData['success'] = session('success');
 
         return view('admin.categories.index')->with('viewData', $viewData);
     }

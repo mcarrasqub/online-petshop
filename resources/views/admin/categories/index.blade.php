@@ -12,8 +12,8 @@
     </a>
   </div>
 
-  @if(session('success'))
-    <div class="alert alert-success m-3">{{ session('success') }}</div>
+  @if($viewData['success'])
+    <div class="alert alert-success m-3">{{ $viewData['success'] }}</div>
   @endif
 
   <div class="table-responsive">

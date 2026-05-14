@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Utils\ProductImageService;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +22,7 @@ class AdminProductController extends Controller
         $viewData['title'] = __('admin.products.title_index');
         $viewData['subtitle'] = __('admin.products.list');
         $viewData['products'] = Product::all();
+        $viewData['success'] = session('success');
 
         return view('admin.products.index')->with('viewData', $viewData);
     }
@@ -30,6 +32,7 @@ class AdminProductController extends Controller
         $viewData = [];
         $viewData['title'] = __('admin.products.title_create');
         $viewData['subtitle'] = __('admin.products.create');
+        $viewData['categories'] = Category::orderBy('name')->get();
 
         return view('admin.products.create')->with('viewData', $viewData);
     }
@@ -65,6 +68,7 @@ class AdminProductController extends Controller
         $viewData['title'] = __('admin.products.title_edit');
         $viewData['subtitle'] = __('admin.products.edit');
         $viewData['product'] = $product;
+        $viewData['categories'] = Category::orderBy('name')->get();
 
         return view('admin.products.edit')->with('viewData', $viewData);
     }

@@ -1,17 +1,34 @@
 <?php
 
-//Edited by David García Zapata
+// Edited by David García Zapata
 
 namespace App\Services;
 
 use App\Models\Product;
+use App\Utils\CartItem;
 use Illuminate\Http\Request;
 
 class CartService
 {
     public function getCart(Request $request): array
     {
-        return $request->session()->get('cart', []);
+        $cartData = $request->session()->get('cart', []);
+        $ids = array_keys($cartData);
+
+        if (empty($ids)) {
+            return [];
+        }
+
+        $products = Product::whereIn('id', $ids)->get()->keyBy('id');
+        $cartItems = [];
+
+        foreach ($cartData as $id => $item) {
+            if (isset($products[$id])) {
+                $cartItems[$id] = new CartItem($products[$id], $item['quantity']);
+            }
+        }
+
+        return $cartItems;
     }
 
     public function calculateTotal(Request $request): float|int
@@ -20,7 +37,7 @@ class CartService
         $total = 0;
 
         foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
+            $total += $item->getSubtotal();
         }
 
         return $total;
@@ -29,7 +46,7 @@ class CartService
     public function add(Request $request, int $id): void
     {
         $product = Product::findOrFail($id);
-        $cart = $this->getCart($request);
+        $cart = $request->session()->get('cart', []);
 
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
@@ -47,7 +64,7 @@ class CartService
 
     public function decrease(Request $request, int $id): void
     {
-        $cart = $this->getCart($request);
+        $cart = $request->session()->get('cart', []);
 
         if (isset($cart[$id])) {
             $cart[$id]['quantity']--;
@@ -62,7 +79,7 @@ class CartService
 
     public function remove(Request $request, int $id): void
     {
-        $cart = $this->getCart($request);
+        $cart = $request->session()->get('cart', []);
 
         if (isset($cart[$id])) {
             unset($cart[$id]);

@@ -23,5 +23,6 @@ return [
         'proceed_to_checkout' => 'Proceder al Pago',
         'empty_cart' => 'Tu carrito está vacío.',
         'continue_shopping' => 'Continuar Comprando',
+        'generate_order' => 'Generar orden',
     ],
 ];

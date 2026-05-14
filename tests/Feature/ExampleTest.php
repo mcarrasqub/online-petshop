@@ -4,13 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class ExampleTest extends TestCase
-
 {
-
     use RefreshDatabase;
 
     #[Test]
@@ -20,10 +18,8 @@ class ExampleTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-
     #[Test]
     public function redirect_to_admin_home_when_admin_visits_home()
-
     {
         $admin = new User([
             'name' => 'Admin User',
@@ -34,9 +30,7 @@ class ExampleTest extends TestCase
 
         $admin->save();
 
-        $response = $this->actingAs($admin)->get('/'); 
+        $response = $this->actingAs($admin)->get('/');
         $response->assertRedirect(route('admin.home.index'));
     }
-
 }
-

@@ -1,6 +1,6 @@
 <?php
 
-//Edited by David García Zapata
+// Edited by David García Zapata
 
 namespace App\Services;
 
@@ -13,22 +13,22 @@ class OrderService
     {
         $total = 0;
         foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
+            $total += $item->getSubtotal();
         }
 
         $order = Order::create([
             'user_id' => $userId,
-            'total'   => $total,
-            'status'  => 'pending',
+            'total' => $total,
+            'status' => 'pending',
             'address' => $address,
         ]);
 
         foreach ($cart as $productId => $item) {
             OrderItem::create([
-                'units'      => $item['quantity'],
-                'price'      => $item['price'],
-                'subtotal'   => $item['price'] * $item['quantity'],
-                'order_id'   => $order->getId(),
+                'units' => $item->getQuantity(),
+                'price' => $item->getPrice(),
+                'subtotal' => $item->getSubtotal(),
+                'order_id' => $order->getId(),
                 'product_id' => $productId,
             ]);
         }

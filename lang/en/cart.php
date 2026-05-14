@@ -23,5 +23,6 @@ return [
         'proceed_to_checkout' => 'Proceed to Checkout',
         'empty_cart' => 'Your cart is empty.',
         'continue_shopping' => 'Continue Shopping',
+        'generate_order' => 'Generate Order',
     ],
 ];

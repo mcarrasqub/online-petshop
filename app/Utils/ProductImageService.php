@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductImageService
 {
+
     public function store(UploadedFile $image): string
     {
         // Determine which disk to use (gcs if configured, otherwise public local)

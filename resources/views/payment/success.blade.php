@@ -39,7 +39,8 @@
     @endif
 
     <div class="d-flex gap-2">
-      <a href="{{ route('payment.receipt', $viewData['payment']->getId()) }}" class="btn btn-success">{{ __('payment.btn_download_receipt') }}</a>
+      <a href="{{ route('payment.receipt', ['payment' => $viewData['payment']->getId(), 'format' => 'pdf']) }}" class="btn btn-danger">{{ __('payment.btn_download_receipt') }}</a>
+      <a href="{{ route('payment.receipt', ['payment' => $viewData['payment']->getId(), 'format' => 'image']) }}" class="btn btn-success">{{ __('payment.btn_download_receipt_image') }}</a>
       <a href="{{ route('orders.list') }}" class="btn btn-primary">{{ __('payment.btn_view_orders') }}</a>
       <a href="{{ route('home.index') }}" class="btn btn-outline-secondary">{{ __('payment.btn_go_home') }}</a>
     </div>

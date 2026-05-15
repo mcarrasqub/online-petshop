@@ -57,9 +57,11 @@ return [
         'customer' => 'Customer',
         'email' => 'Email',
         'generated_at' => 'Document generated on :date.',
+        'error_gd' => 'The PHP GD extension is not enabled. Enable php_gd to generate the image.',
     ],
 
     'btn_view_orders' => 'View orders',
     'btn_go_home' => 'Go home',
     'btn_download_receipt' => 'Download receipt (PDF)',
+    'btn_download_receipt_image' => 'Download receipt (Image)',
 ];

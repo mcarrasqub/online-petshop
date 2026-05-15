@@ -57,9 +57,11 @@ return [
         'customer' => 'Cliente',
         'email' => 'Correo',
         'generated_at' => 'Documento generado el :date.',
+        'error_gd' => 'La extensión PHP GD no está habilitada. Activa php_gd para generar la imagen.',
     ],
 
     'btn_view_orders' => 'Ver órdenes',
     'btn_go_home' => 'Ir al inicio',
     'btn_download_receipt' => 'Descargar comprobante (PDF)',
+    'btn_download_receipt_image' => 'Descargar comprobante (Imagen)',
 ];

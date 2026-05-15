@@ -108,7 +108,7 @@ class Product extends Model
             return $this->image;
         }
 
-        // Construimos la URL de Google Cloud manualmente para evitar errores del driver
+        // build the google cloud url
         $bucket = config('filesystems.disks.gcs.bucket', 'tu-bucket');
         
         return "https://storage.googleapis.com/{$bucket}/{$this->image}";

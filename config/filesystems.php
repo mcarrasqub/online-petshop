@@ -1,5 +1,7 @@
 <?php
 
+use League\Flysystem\GoogleCloudStorage\UniformBucketLevelAccessVisibility;
+
 return [
 
     /*
@@ -62,14 +64,15 @@ return [
 
         'gcs' => [
             'driver' => 'gcs',
-            'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', null),
-            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'your-project-id'),
-            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'your-bucket-name'),
-            'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', null),
+            'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', null)? base_path(env('GOOGLE_CLOUD_KEY_FILE')) : null, // path service account json file
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', ''),
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', ''),
+            'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', ''),
             'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null),
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
+            'visibility_handler' => UniformBucketLevelAccessVisibility::class,
         ],
 
     ],

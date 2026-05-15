@@ -98,20 +98,15 @@ class Product extends Model
 
     public function getImageUrl(): ?string
     {
-        // if there is no image, return a default image
         if (! $this->image) {
-            return 'https://placehold.co/600x400?text=Huellitas+Petshop';
+            return null;
         }
 
-        // if the image is already a complete URL, return it as is
-        if (str_starts_with($this->image, 'http')) {
-            return $this->image;
+        if (str_starts_with($this->image, 'img/')) {
+            return asset($this->image);
         }
 
-        // build the google cloud url
-        $bucket = config('filesystems.disks.gcs.bucket', 'tu-bucket');
-        
-        return "https://storage.googleapis.com/{$bucket}/{$this->image}";
+        return Storage::disk('gcs')->url($this->image);
     }
 
     public function getSpecie(): string

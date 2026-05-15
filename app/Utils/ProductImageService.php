@@ -11,12 +11,7 @@ class ProductImageService
 
     public function store(UploadedFile $image): string
     {
-        // Determine which disk to use (gcs if configured, otherwise public local)
-        $disk = config('filesystems.default') === 'gcs' ? 'gcs' : 'public';
-        
-        $path = Storage::disk($disk)->put('products', $image);
-
-        return $path;
+        return $image->store('products', 'gcs');
     }
 
     public function replace(?string $currentPath, UploadedFile $newImage): string
@@ -28,14 +23,10 @@ class ProductImageService
 
     public function delete(?string $path): void
     {
-        if (! $path || str_starts_with($path, 'http')) {
+        if (! $path) {
             return;
         }
-
-        $disk = config('filesystems.default') === 'gcs' ? 'gcs' : 'public';
         
-        if (Storage::disk($disk)->exists($path)) {
-            Storage::disk($disk)->delete($path);
-        }
+        Storage::disk('gcs')->delete($path);
     }
 }

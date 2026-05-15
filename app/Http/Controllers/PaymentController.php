@@ -7,9 +7,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Order;
 use App\Models\Payment;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
+use App\Interfaces\PaymentReceiptGeneratorInterface;
 
 class PaymentController extends Controller
 {
@@ -42,15 +43,10 @@ class PaymentController extends Controller
         return view('payment.success')->with('viewData', $viewData);
     }
 
-    public function receipt(string $id)
+    public function receipt(Payment $payment, PaymentReceiptGeneratorInterface $receiptGenerator): Response
     {
-        $payment = Payment::with('order.user')->findOrFail($id);
+        $payment->load('order.user');
 
-        $viewData = [];
-        $viewData['payment'] = $payment;
-
-        $pdf = Pdf::loadView('payment.receipt', compact('viewData'));
-
-        return $pdf->download('comprobante-pago-'.$payment->getId().'.pdf');
+        return $receiptGenerator->generate($payment);
     }
 }

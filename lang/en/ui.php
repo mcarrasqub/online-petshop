@@ -29,4 +29,18 @@ return [
 
     'dashboard' => 'Dashboard',
     'you_are_logged_in' => 'You are logged in!',
+
+    'welcome_to_huellitas' => 'Welcome to Huellitas!',
+    'find_your_best_friend' => 'Find your furry best friend or the best products for them.',
+    'explore_products' => 'Explore Products',
+    'join_now' => 'Join now',
+    'quality_products' => 'Quality Products',
+    'quality_products_desc' => 'We offer the best food, toys, and accessories for your pet\'s care.',
+    'view_catalog' => 'View catalog',
+    'allied_products' => 'Allied Products',
+    'allied_products_desc' => 'Discover exclusive products from our strategic partners for your pet.',
+    'view_allies' => 'View allies',
+    'fast_shipping' => 'Fast Shipping',
+    'fast_shipping_desc' => 'Receive your orders quickly at your doorstep. We take care of every detail.',
+    'my_orders' => 'My Orders',
 ];

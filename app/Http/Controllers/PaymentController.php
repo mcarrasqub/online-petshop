@@ -54,11 +54,12 @@ class PaymentController extends Controller
         return view('payment.success')->with('viewData', $viewData);
     }
 
-    public function receipt(Payment $payment, PaymentReceiptGeneratorInterface $receiptGenerator): Response
+    public function receipt(string $id): Response
     {
-        $payment->load('order.user');
-
+        $payment = Payment::with('order', 'order.user')->findOrFail($id);
+        
+        $receiptGenerator = app(PaymentReceiptGeneratorInterface::class);
+        
         return $receiptGenerator->generate($payment);
     }
 }
-

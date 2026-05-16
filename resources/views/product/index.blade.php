@@ -40,13 +40,17 @@
           @endif
           <div class="card-body">
             <h5 class="card-title">{{ $product->getName() }}</h5>
-            <p class="card-text mb-1">{{ __('product.labels.price') }}: ${{ number_format($product->getPrice(), 0, ',', '.') }}</p>
+            <p class="card-text mb-1">{{ __('product.labels.price') }}: ${{ number_format($product->getPrice(), 0, ',', '.') }} COP (approx. ${{ $viewData['usdPrices'][$product->getId()] ?? 0 }} USD)</p>
             <p class="card-text">{{ __('product.labels.stock') }}: {{ $product->getStock() }}</p>
             <a href="{{ route('product.show', $product->getId()) }}" class="btn btn-outline-primary btn-sm">{{ __('product.actions.view') }}</a>
-            <form action="{{ route('cart.add', $product->getId()) }}" method="POST" class="d-inline">
-              @csrf
-              <button class="btn btn-primary btn-sm" type="submit">{{ __('product.actions.add') }}</button>
-            </form>
+            @if($product->getStock() > 0)
+              <form action="{{ route('cart.add', $product->getId()) }}" method="POST" class="d-inline">
+                @csrf
+                <button class="btn btn-primary btn-sm" type="submit">{{ __('product.actions.add') }}</button>
+              </form>
+            @else
+              <button class="btn btn-secondary btn-sm" disabled>{{ __('product.out_of_stock') }}</button>
+            @endif
           </div>
         </div>
       </div>

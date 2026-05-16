@@ -78,7 +78,7 @@ class ImagePaymentReceiptGenerator implements PaymentReceiptGeneratorInterface
     private function font(string $color, int $size): \Closure
     {
         return function (FontFactory $font) use ($color, $size) {
-            $font->filename(public_path('fonts/Roboto-regular.ttf'));
+            $font->filename(public_path('fonts/Roboto-Regular.ttf'));
             $font->color($color);
             $font->size($size);
         };

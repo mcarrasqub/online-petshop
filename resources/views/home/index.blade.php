@@ -42,7 +42,7 @@
                 <i class="bi bi-stars feature-icon text-app-warning"></i>
                 <h3 class="h5 fw-bold">{{ __('ui.allied_products') }}</h3>
                 <p class="text-muted">{{ __('ui.allied_products_desc') }}</p>
-                <a href="{{ route('api.partner.product.index') }}" class="btn rounded-pill mt-3 fw-bold btn-outline-app-warning">{{ __('ui.view_allies') }}</a>
+                <a href="{{ route('partner.index') }}" class="btn rounded-pill mt-3 fw-bold btn-outline-app-warning">{{ __('ui.view_allies') }}</a>
             </div>
         </div>
         <div class="col-md-4">

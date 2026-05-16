@@ -10,4 +10,6 @@ return [
     'view_in_store' => 'View in partner store',
     'empty' => 'There are no partner products available at this moment.',
     'default_store' => 'Partner',
+    'loading' => 'Loading partner products...',
+    'error' => 'An error occurred while loading partner products.',
 ];

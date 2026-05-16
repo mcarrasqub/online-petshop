@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    container_name: petshop-app
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/var/www/html/storage
+      - ./service-account.json:/var/www/html/service-account.json
+      - ./.env:/var/www/html/.env
+
+  db:
+    image: mysql:8.0
+    container_name: petshop-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: online_petshop
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

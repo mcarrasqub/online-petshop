@@ -7,6 +7,7 @@ return [
     'all_categories' => 'Todas las categorías',
     'empty' => 'No hay productos disponibles.',
     'no_image' => 'Sin imagen',
+    'out_of_stock' => 'Agotado',
     'store_name' => 'Huellitas Pet Shop',
     'title_index' => 'Productos - Huellitas Pet Shop',
     'subtitle_index' => 'Catálogo',

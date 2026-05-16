@@ -46,6 +46,11 @@ class CartService
     public function add(Request $request, int $id): void
     {
         $product = Product::findOrFail($id);
+
+        if ($product->getStock() <= 0) {
+            return;
+        }
+
         $cart = $request->session()->get('cart', []);
 
         if (isset($cart[$id])) {

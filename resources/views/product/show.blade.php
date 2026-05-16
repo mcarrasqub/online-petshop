@@ -22,10 +22,14 @@
           <p class="card-text mb-1">{{ __('product.labels.price') }}: ${{ number_format($viewData['product']->getPrice(), 0, ',', '.') }} COP (approx. ${{ $viewData['priceInUsd'] }} USD)</p>
           <p class="card-text mb-3">{{ __('product.labels.stock') }}: {{ $viewData['product']->getStock() }}</p>
 
-          <form action="{{ route('cart.add', $viewData['product']->getId()) }}" method="POST">
-            @csrf
-            <button class="btn btn-primary" type="submit">{{ __('product.actions.add_to_cart') }}</button>
-          </form>
+          @if($viewData['product']->getStock() > 0)
+            <form action="{{ route('cart.add', $viewData['product']->getId()) }}" method="POST">
+              @csrf
+              <button class="btn btn-primary" type="submit">{{ __('product.actions.add_to_cart') }}</button>
+            </form>
+          @else
+            <button class="btn btn-secondary" disabled>{{ __('product.out_of_stock') }}</button>
+          @endif
         </div>
       </div>
     </div>

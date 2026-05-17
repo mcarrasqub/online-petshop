@@ -64,7 +64,7 @@ return [
 
         'gcs' => [
             'driver' => 'gcs',
-            'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', null)? base_path(env('GOOGLE_CLOUD_KEY_FILE')) : null, // path service account json file
+            'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', null) ? base_path(env('GOOGLE_CLOUD_KEY_FILE')) : null, // path service account json file
             'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', ''),
             'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', ''),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', ''),

@@ -22,11 +22,11 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local.
 
 1. Clonar el Repositorio
 
-Abre tu terminal o línea de comandos y clona el proyecto en la carpeta htdocs de tu instalación de XAMPP.
+Abre tu terminal o línea de comandos y clona el proyecto en la carpeta htdocs de tu instalación de XAMPP (o cualquier carpeta de tu preferencia si vas a usar Docker).
 
 ```powershell
 cd c:\xampp\htdocs
-git clone <https://github.com/mcarrasqub/online-petshop.git> online-petshop
+git clone https://github.com/mcarrasqub/online-petshop.git online-petshop
 cd online-petshop
 ```
 <br>
@@ -39,16 +39,27 @@ Copia el archivo de configuración de ejemplo para crear tu propio archivo de en
 copy .env.example .env
 ```
 
-Abre el archivo .env recién creado y configura la conexión a tu base de datos. Asegúrate de crear una base de datos vacía (ej. online_petshop) desde phpMyAdmin o tu gestor de base de datos preferido.
+Abre el archivo `.env` recién creado y configura la conexión a tu base de datos y tus credenciales de Google Cloud Storage (GCS) para las imágenes de los productos:
 
-```
+```ini
+# Base de Datos (MySQL)
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=online_petshop
 DB_USERNAME=root
 DB_PASSWORD=
+
+# Configuración de Google Cloud Storage
+FILESYSTEM_DISK=gcs
+GOOGLE_CLOUD_PROJECT_ID=tu-gcp-project-id
+GOOGLE_CLOUD_STORAGE_BUCKET=tu-gcs-bucket-name
+GOOGLE_CLOUD_KEY_FILE=service-account.json
 ```
+
+> [IMPORTANTE!]
+> Debes colocar el archivo de credenciales de Google Cloud (`service-account.json`) en la raíz del proyecto para que la carga y descarga de imágenes desde la nube (GCS) funcione correctamente. Este archivo ya se encuentra en el `.gitignore` por seguridad.
+
 <br>
 
 3. Instalar Dependencias
@@ -60,9 +71,8 @@ composer install
 ```
 
 **Nota para Solución de Problemas:** 
-
-Si el comando anterior falla con errores relacionados a archivos .zip, es probable que la extensión zip de PHP no esté activada en tu XAMPP. Puedes solucionarlo activándola en tu php.ini o ejecutar el comando de instalación usando la siguiente bandera:
-```
+Si el comando anterior falla con errores relacionados a archivos `.zip`, es probable que la extensión zip de PHP no esté activada en tu XAMPP. Puedes solucionarlo activándola en tu `php.ini` o ejecutar el comando de instalación usando la siguiente bandera:
+```powershell
 composer install --prefer-source
 ```
 <br>
@@ -77,61 +87,74 @@ php artisan key:generate
 
 <br>
 
-5. Crear la Estructura de la Base de Datos
+5. Estructurar y Sembrar la Base de Datos (Base de Datos + Semillas)
 
-Ejecuta las migraciones para crear todas las tablas necesarias en la base de datos que configuraste. El comando php artisan migrate:fresh eliminará las tablas existentes y las volverá a crear en caso de ser necesario.
+Ejecuta las migraciones junto con las semillas para crear la estructura de tablas y precargar los productos, categorías e incluso las cuentas de usuario de prueba:
 
-```
-php artisan migrate
-```
-
-<br>
-
-6. Crear el Enlace Simbólico (Storage Link)
-
-Para que las imágenes y otros archivos públicos sean accesibles desde el navegador, debes crear un "enlace simbólico".
-
-```
-php artisan storage:link
+```powershell
+php artisan migrate --seed
 ```
 
 <br>
 
-7. Ejecutar el Servidor de Desarrollo
+6. Ejecutar el Servidor de Desarrollo
 
 ¡Todo está listo! Inicia el servidor de desarrollo de Laravel.
 
-```
+```powershell
 php artisan serve
 ```
 
-<br>
-
-8. Acceder a la Aplicación
-
 Abre tu navegador web y visita la siguiente URL para ver la página principal del proyecto:
+[http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-http://127.0.0.1:8000
+---
 
-<br>
+## Alternativa Moderna: Ejecución con Docker
 
-## Librerías Externas Adicionales
+Si prefieres no instalar PHP, MySQL, Apache o Composer de manera local, puedes ejecutar todo el sistema de forma aislada y automática utilizando **Docker** y **Docker Compose** en solo dos comandos:
 
-Este proyecto depende de las siguientes librerías externas que se instalan automáticamente con composer install, pero es importante conocer su función:
+1. **Construir y Levantar Contenedores:**
+   ```bash
+   docker-compose up --build -d
+   ```
+   *Esto levantará el servidor web Apache + PHP 8.2 en `http://localhost` y un motor de base de datos MySQL 8.0 en segundo plano con control de salud inteligente.*
 
-barryvdh/laravel-dompdf: Utilizada para la funcionalidad de "Descargar Recibo". Permite convertir una vista de HTML y CSS en un documento PDF.
+2. **Inicializar y Sembrar la Base de Datos en Docker:**
+   ```bash
+   docker-compose exec app php artisan migrate --seed
+   ```
 
-si surgen problemas por no tenerla instala, ejecutar uno de estos comandos:
+3. **Apagar los contenedores:**
+   ```bash
+   docker-compose down
+   ```
 
+---
+
+## Pruebas Unitarias y de Integración
+
+El proyecto cuenta con una suite completa de pruebas unitarias y de integración para garantizar que la tienda sea robusta (probando lógica matemática del carrito de compras y conversiones con fakes de la API externa). Para correr las pruebas, ejecuta:
+
+```powershell
+php artisan test
 ```
-composer require barryvdh/laravel-dompdf
-```
-en caso de que el anterior comando no funcione:
-```
-composer require barryvdh/laravel-dompdf --prefer-source
-```
-<br>
 
-## Indicaciones Adicionales
+---
 
-Para crear un usuario con rol de administrador debe crearlo desde la vista de login (registrarse) y luego ir directamente a myPhpAdmin a la tabla de usuarios dentro de su base de datos, buscar el usuario que acabó de crear y editar el campo de is_admin para cambiar el 0 por 1. 
+## Conversión de Divisa Automática (API Externa)
+
+La tienda incluye un servicio de conversión de divisas dinámico (`ExchangeRateService`) que consulta las tasas de cambio de **COP a USD** en tiempo real mediante una API REST externa. Para no saturar los límites de la API y garantizar el rendimiento óptimo, la tasa de cambio es almacenada en caché local por 1 hora (`Cache::remember`). Si la API externa llega a fallar, el servicio incluye lógica defensiva que utiliza un cambio por defecto (`1 USD = 4000 COP`).
+
+---
+
+## Cuentas de Prueba Preconfiguradas (Semillas)
+
+Al sembrar la base de datos con `--seed`, se configuran automáticamente dos cuentas listas para usar:
+
+*   **Administrador (Admin):**
+    *   **Email:** `admin@huellitas.com`
+    *   **Password:** `password`
+*   **Cliente Estándar (User):**
+    *   **Email:** `user@huellitas.com`
+    *   **Password:** `password` 

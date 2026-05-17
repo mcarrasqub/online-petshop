@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function __construct(private readonly ExchangeRateService $exchangeRateService) {} 
+    public function __construct(private readonly ExchangeRateService $exchangeRateService) {}
 
     public function index(): View
     {

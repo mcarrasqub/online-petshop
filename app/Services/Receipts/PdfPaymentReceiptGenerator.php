@@ -1,13 +1,13 @@
 <?php
 
-//modified by Sofia Gallo
+// modified by Sofia Gallo
 
 namespace App\Services\Receipts;
 
 use App\Interfaces\PaymentReceiptGeneratorInterface;
 use App\Models\Payment;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Response;   
+use Illuminate\Http\Response;
 
 class PdfPaymentReceiptGenerator implements PaymentReceiptGeneratorInterface
 {
@@ -17,6 +17,6 @@ class PdfPaymentReceiptGenerator implements PaymentReceiptGeneratorInterface
             'payment' => $payment,
         ]);
 
-        return $pdf->download('comprobante-pago-' . $payment->getId() . '.pdf');
+        return $pdf->download('comprobante-pago-'.$payment->getId().'.pdf');
     }
 }

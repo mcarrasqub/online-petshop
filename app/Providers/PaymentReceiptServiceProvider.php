@@ -1,6 +1,6 @@
 <?php
 
-//modified by Sofia Gallo
+// modified by Sofia Gallo
 
 namespace App\Providers;
 
@@ -11,20 +11,18 @@ use Illuminate\Support\ServiceProvider;
 
 class PaymentReceiptServiceProvider extends ServiceProvider
 {
-
     public function register(): void
     {
         $this->app->bind(PaymentReceiptGeneratorInterface::class, function ($app) {
             $format = $app->make('request')->query('format');
 
             if ($format === 'image') {
-                return new ImagePaymentReceiptGenerator();
+                return new ImagePaymentReceiptGenerator;
             }
 
-            return new PdfPaymentReceiptGenerator();
+            return new PdfPaymentReceiptGenerator;
         });
     }
-
 
     public function boot(): void
     {

@@ -14,14 +14,14 @@ class ExchangeRateServiceTest extends TestCase
         Http::fake([
             'https://open.er-api.com/*' => Http::response([
                 'rates' => [
-                    'COP' => 4000.0
-                ]
-            ], 200)
+                    'COP' => 4000.0,
+                ],
+            ], 200),
         ]);
 
         Cache::forget('usd_to_cop_rate');
 
-        $service = new ExchangeRateService();
+        $service = new ExchangeRateService;
         $result = $service->convertCopToUsd(12000.0);
 
         $this->assertEquals(3.00, $result);
@@ -30,12 +30,12 @@ class ExchangeRateServiceTest extends TestCase
     public function test_exchange_rate_service_uses_fallback_on_api_failure(): void
     {
         Http::fake([
-            'https://open.er-api.com/*' => Http::response(null, 500)
+            'https://open.er-api.com/*' => Http::response(null, 500),
         ]);
 
         Cache::forget('usd_to_cop_rate');
 
-        $service = new ExchangeRateService();
+        $service = new ExchangeRateService;
         $result = $service->convertCopToUsd(12000.0);
 
         $this->assertEquals(3.00, $result);

@@ -21,7 +21,7 @@ class PaymentController extends Controller
         private readonly CartService $cartService
     ) {}
 
-    public function index(string $id): View
+    public function index(int $id): View
     {
         $order = Order::with('user')->findOrFail($id);
 
@@ -36,14 +36,13 @@ class PaymentController extends Controller
     {
         $payment = Payment::create($request->validated());
 
-        $order = Order::with('orderItems.product')->findOrFail($payment->getOrderId());
-        $this->orderService->decreaseStockFromOrder($order);
+        $this->orderService->decreaseStockFromOrder($payment->getOrderId());
         $this->cartService->removeAll($request);
 
         return redirect()->route('payment.success', $payment->getId());
     }
 
-    public function success(string $id): View
+    public function success(int $id): View
     {
         $payment = Payment::with('order')->findOrFail($id);
 
@@ -54,7 +53,7 @@ class PaymentController extends Controller
         return view('payment.success')->with('viewData', $viewData);
     }
 
-    public function receipt(string $id): Response
+    public function receipt(int $id): Response
     {
         $payment = Payment::with('order', 'order.user')->findOrFail($id);
         

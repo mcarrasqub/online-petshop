@@ -19,7 +19,7 @@
         <div class="card-body">
           <h4 class="card-title">{{ $viewData['product']->getName() }}</h4>
           <p class="card-text">{{ $viewData['product']->getDescription() }}</p>
-          <p class="card-text mb-1">{{ __('product.labels.price') }}: ${{ number_format($viewData['product']->getPrice(), 0, ',', '.') }} COP (approx. ${{ $viewData['priceInUsd'] }} USD)</p>
+          <p class="card-text mb-1">{{ __('product.labels.price') }}: ${{ number_format($viewData['product']->getPrice(), 0, ',', '.') }} COP ({{ __('product.labels.approx') }} ${{ $viewData['priceInUsd'] }} USD)</p>
           <p class="card-text mb-3">{{ __('product.labels.stock') }}: {{ $viewData['product']->getStock() }}</p>
 
           @if($viewData['product']->getStock() > 0)

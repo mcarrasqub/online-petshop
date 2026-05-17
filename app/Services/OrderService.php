@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Product;
 
 class OrderService
 {
@@ -37,8 +36,9 @@ class OrderService
         return $order;
     }
 
-    public function decreaseStockFromOrder(Order $order): void
+    public function decreaseStockFromOrder(int $orderId): void
     {
+        $order = Order::findOrFail($orderId);
         $orderItems = $order->orderItems()->with('product')->get();
 
         foreach ($orderItems as $orderItem) {

@@ -102,10 +102,6 @@ class Product extends Model
             return null;
         }
 
-        if (str_starts_with($this->image, 'img/')) {
-            return asset($this->image);
-        }
-
         return Storage::disk('gcs')->url($this->image);
     }
 

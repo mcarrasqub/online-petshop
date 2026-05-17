@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Utils\ProductImageService;
@@ -73,7 +74,7 @@ class AdminProductController extends Controller
         return view('admin.products.edit')->with('viewData', $viewData);
     }
 
-    public function update(StoreProductRequest $request, int $id): RedirectResponse
+    public function update(UpdateProductRequest $request, int $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $data = $request->validated();

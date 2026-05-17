@@ -40,7 +40,7 @@
           @endif
           <div class="card-body">
             <h5 class="card-title">{{ $product->getName() }}</h5>
-            <p class="card-text mb-1">{{ __('product.labels.price') }}: ${{ number_format($product->getPrice(), 0, ',', '.') }} COP (approx. ${{ $viewData['usdPrices'][$product->getId()] ?? 0 }} USD)</p>
+            <p class="card-text mb-1">{{ __('product.labels.price') }}: ${{ number_format($product->getPrice(), 0, ',', '.') }} COP ({{ __('product.labels.approx') }} ${{ $viewData['usdPrices'][$product->getId()] ?? 0 }} USD)</p>
             <p class="card-text">{{ __('product.labels.stock') }}: {{ $product->getStock() }}</p>
             <a href="{{ route('product.show', $product->getId()) }}" class="btn btn-outline-primary btn-sm">{{ __('product.actions.view') }}</a>
             @if($product->getStock() > 0)

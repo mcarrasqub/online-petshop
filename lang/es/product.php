@@ -16,6 +16,7 @@ return [
     'labels' => [
         'price' => 'Precio',
         'stock' => 'Unidades disponibles',
+        'approx' => 'aprox.',
     ],
     'actions' => [
         'search' => 'Buscar',

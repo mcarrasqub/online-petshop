@@ -4,20 +4,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Carbon;
 
 /**
  * USERS ATTRIBUTES
  * $this->attributes['id'] - int - contains the user primary key (id)
  * $this->attributes['name'] - string - contains the user name
- * $this->attributes['email'] - string - contains the user email
  * $this->attributes['phone_number'] - string - contains the user phone number
- * $this->attributes['password'] - string - contains the user password
+ * $this->attributes['email'] - string - contains the user email
  * $this->attributes['is_admin'] - boolean - indicates if the user is an admin
+ * $this->attributes['password'] - string - contains the user password
  * $this->attributes['created_at'] - datetime - contains the user creation date
  * $this->attributes['updated_at'] - datetime - contains the user update date
+ *
+ * RELATIONSHIPS
+ * $this->orders - Order[] - contains the user orders
  */
 class User extends Authenticatable
 {
@@ -67,66 +70,71 @@ class User extends Authenticatable
 
     public function getId(): int
     {
-        return $this->id;
+        return $this->attributes['id'];
     }
 
     public function getName(): string
     {
-        return $this->name;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phone_number;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function getIsAdmin(): bool
-    {
-        return $this->is_admin;
-    }
-
-    public function getCreatedAt(): ?Carbon
-    {
-        return $this->created_at;
-    }
-
-    public function getUpdatedAt(): ?Carbon
-    {
-        return $this->updated_at;
+        return $this->attributes['name'];
     }
 
     public function setName(string $name): void
     {
-        $this->name = $name;
+        $this->attributes['name'] = $name;
     }
 
-    public function setEmail(string $email): void
+    public function getPhoneNumber(): ?string
     {
-        $this->email = $email;
+        return $this->attributes['phone_number'];
     }
 
     public function setPhoneNumber(?string $phoneNumber): void
     {
-        $this->phone_number = $phoneNumber;
+        $this->attributes['phone_number'] = $phoneNumber;
     }
 
-    public function setPassword(string $password): void
+    public function getEmail(): string
     {
-        $this->password = $password;
+        return $this->attributes['email'];
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->attributes['email'] = $email;
+    }
+
+    public function getIsAdmin(): bool
+    {
+        return $this->attributes['is_admin'];
     }
 
     public function setIsAdmin(bool $isAdmin): void
     {
-        $this->is_admin = $isAdmin;
+        $this->attributes['is_admin'] = $isAdmin;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->attributes['password'];
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->attributes['password'] = $password;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->attributes['updated_at'];
+    }
+
+    public function getOrders(): Collection
+    {
+        return $this->orders;
     }
 }

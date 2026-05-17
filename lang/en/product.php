@@ -7,13 +7,16 @@ return [
     'all_categories' => 'All categories',
     'empty' => 'No products available.',
     'no_image' => 'No image',
+    'out_of_stock' => 'Out of stock',
     'store_name' => 'Huellitas Pet Shop',
     'title_index' => 'Products - Huellitas Pet Shop',
     'subtitle_index' => 'Catalog',
+    'nav_products' => 'Products',
     'subtitle_show' => ':name - Product details',
     'labels' => [
         'price' => 'Price',
         'stock' => 'Stock',
+        'approx' => 'approx.',
     ],
     'actions' => [
         'search' => 'Search',

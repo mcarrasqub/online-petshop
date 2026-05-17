@@ -7,7 +7,7 @@
 </head>
 <body>
   @php
-    $methodKey = 'payment.methods.'.$payment->getMethod();
+    $methodKey = 'payment.methods.'.$payment ->getMethod();
     $methodLabel = __($methodKey);
   @endphp
   <div class="header">
@@ -27,7 +27,7 @@
     <div class="row"><span class="label">{{ __('payment.receipt.customer') }}</span><span class="value">{{ $payment->getOrder()?->getUser()?->getName() }}</span></div>
     <div class="row"><span class="label">{{ __('payment.receipt.email') }}</span><span class="value">{{ $payment->getOrder()?->getUser()?->getEmail() }}</span></div>
     <div class="row"><span class="label">{{ __('payment.fields.address') }}</span><span class="value">{{ $payment->getOrder()?->getAddress() }}</span></div>
-    <div class="row"><span class="label">{{ __('payment.fields.status') }}</span><span class="value">{{ __('orders.status.' . $payment->getOrder()?->getStatus()) }}</span></div>
+    <div class="row"><span class="label">{{ __('payment.fields.status') }}</span><span class="value">{{ __('orders.status.' . $payment  ->getOrder()?->getStatus()) }}</span></div>
   </div>
 
   <div class="footer">

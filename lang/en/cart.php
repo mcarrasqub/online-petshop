@@ -7,6 +7,7 @@ return [
     'subtitle_index' => 'Shopping Cart',
     'messages' => [
         'added' => 'Product added to cart!',
+        'decreased' => 'Product unit removed from cart!',
         'removed' => 'Product removed from cart!',
         'cleared' => 'Cart cleared successfully!',
     ],
@@ -22,5 +23,6 @@ return [
         'proceed_to_checkout' => 'Proceed to Checkout',
         'empty_cart' => 'Your cart is empty.',
         'continue_shopping' => 'Continue Shopping',
+        'generate_order' => 'Generate Order',
     ],
 ];

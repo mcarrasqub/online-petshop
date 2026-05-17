@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
@@ -32,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -42,6 +43,23 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the application registration form.
+     */
+    public function showRegistrationForm(): View
+    {
+        $viewData = [];
+        $viewData['title'] = __('ui.register');
+        $viewData['nameLabel'] = __('ui.name');
+        $viewData['phoneLabel'] = __('ui.phone_number');
+        $viewData['emailLabel'] = __('ui.email_address');
+        $viewData['passwordLabel'] = __('ui.password');
+        $viewData['confirmPasswordLabel'] = __('ui.confirm_password');
+        $viewData['buttonText'] = __('ui.register');
+
+        return view('auth.register')->with('viewData', $viewData);
     }
 
     public function register(RegisterRequest $request): RedirectResponse

@@ -1,21 +1,17 @@
 <?php
 
-namespace App\Providers;
+namespace App\Utils;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class ProductImageServiceProvider
+class ProductImageService
 {
+
     public function store(UploadedFile $image): string
     {
-        File::ensureDirectoryExists(public_path('img/products'));
-
-        $imageName = $image->hashName();
-        $image->move(public_path('img/products'), $imageName);
-
-        return 'img/products/'.$imageName;
+        return $image->store('products', 'gcs');
     }
 
     public function replace(?string $currentPath, UploadedFile $newImage): string
@@ -30,13 +26,7 @@ class ProductImageServiceProvider
         if (! $path) {
             return;
         }
-
-        if (str_starts_with($path, 'img/')) {
-            File::delete(public_path($path));
-
-            return;
-        }
-
-        Storage::disk('public')->delete($path);
+        
+        Storage::disk('gcs')->delete($path);
     }
 }

@@ -25,10 +25,11 @@
             <th>{{ __('orders.fields.address') }}</th>
             <th>{{ __('orders.my.payment') }}</th>
             <th>{{ __('orders.my.date') }}</th>
+            <th>{{ __('orders.fields.actions') }}</th>
           </tr>
         </thead>
         <tbody>
-          @forelse($orders as $order)
+          @forelse($viewData['orders'] as $order)
             <tr>
               <td>{{ $order->getId() }}</td>
               <td>${{ number_format($order->getTotal(), 2) }}</td>
@@ -41,11 +42,16 @@
                   <span class="badge bg-warning text-dark">{{ __('orders.my.pending_payment') }}</span>
                 @endif
               </td>
-              <td>{{ $order->getCreatedAt()?->format('Y-m-d H:i') }}</td>
+              <td>{{ substr($order->getCreatedAt(), 0, 16) }}</td>
+              <td>
+                <a href="{{ route('orders.show', $order->getId()) }}" class="btn btn-sm btn-primary">
+                  <i class="bi bi-eye"></i> {{ __('orders.btn_view') }}
+                </a>
+              </td>
             </tr>
           @empty
             <tr>
-              <td colspan="6" class="text-center text-muted py-4">{{ __('orders.my.empty') }}</td>
+              <td colspan="7" class="text-center text-muted py-4">{{ __('orders.my.empty') }}</td>
             </tr>
           @endforelse
         </tbody>

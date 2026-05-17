@@ -9,17 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
 
 /**
  * ORDERS ATTRIBUTES
  * $this->attributes['id'] - int - contains the order primary key (id)
- * $this->attributes['total'] - float - contains the order total amount
+ * $this->attributes['total'] - int - contains the order total amount
  * $this->attributes['status'] - string - contains the order status
  * $this->attributes['address'] - string - contains the order shipping address
  * $this->attributes['user_id'] - int - contains the user primary key (id)
  * $this->attributes['created_at'] - datetime - contains the order creation date
  * $this->attributes['updated_at'] - datetime - contains the order update date
+ *
+ * RELATIONSHIPS
+ * $this->user - User - contains the order user
+ * $this->orderItems - OrderItem[] - contains the order items
+ * $this->payment - Payment - contains the order payment
  */
 class Order extends Model
 {
@@ -47,25 +51,54 @@ class Order extends Model
         return $this->hasOne(Payment::class);
     }
 
-    // Getters
     public function getId(): int
     {
-        return $this->id;
+        return $this->attributes['id'];
     }
 
-    public function getTotal(): float
+    public function getTotal(): int
     {
-        return $this->total;
+        return $this->attributes['total'];
+    }
+
+    public function setTotal(int $total): void
+    {
+        $this->attributes['total'] = $total;
     }
 
     public function getStatus(): string
     {
-        return $this->status;
+        return $this->attributes['status'];
+    }
+
+    public function setStatus(string $status): void
+    {
+        $this->attributes['status'] = $status;
     }
 
     public function getAddress(): string
     {
-        return $this->address;
+        return $this->attributes['address'];
+    }
+
+    public function setAddress(string $address): void
+    {
+        $this->attributes['address'] = $address;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->attributes['user_id'];
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->attributes['updated_at'];
     }
 
     public function getUser(): User
@@ -73,72 +106,31 @@ class Order extends Model
         return $this->user;
     }
 
-    public function getOrderItems(): HasMany
-    {
-        return $this->orderItems();
-    }
-
-    public function getPayment(): Payment
-    {
-        return $this->payment;
-    }
-
-    public function getCreatedAt(): Carbon
-    {
-        return $this->created_at;
-    }
-
-    public function getUpdatedAt(): Carbon
-    {
-        return $this->updated_at;
-    }
-
-    // Setters
-    public function setTotal(float $total): void
-    {
-        $this->total = $total;
-    }
-
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
-    }
-
-    public function setAddress(string $address): void
-    {
-        $this->address = $address;
-    }
-
     public function setUser(User $user): void
     {
         $this->user()->associate($user);
     }
 
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
     public function confirm(): void
     {
-        $this->status = 'Confirmed';
+        $this->attributes['status'] = 'Confirmed';
         $this->save();
     }
 
     public function cancel(): void
     {
-        $this->status = 'Canceled';
+        $this->attributes['status'] = 'Canceled';
         $this->save();
-    }
-
-    public static function createFromCart(int $userId, string $address, array $cart): self
-    {
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        return self::create([
-            'user_id' => $userId,
-            'total' => $total,
-            'status' => 'pending',
-            'address' => $address,
-        ]);
     }
 
     public static function getByUser(int $userId): Collection

@@ -21,14 +21,26 @@
         @foreach($viewData['cart'] as $id => $item)
           <tr>
             <td>
-              @if(isset($item['image']))
-                <img src="{{ $item['image_url'] ?? (str_starts_with($item['image'], 'img/') ? asset($item['image']) : asset('storage/' . $item['image'])) }}" alt="{{ $item['name'] }}" style="width: 50px; height: 50px; object-fit: cover;" class="me-2">
+              @if($item->getImage())
+                <img src="{{ $item->getImage() }}" alt="{{ $item->getName() }}" style="width: 50px; height: 50px; object-fit: cover;" class="me-2">
               @endif
-              {{ $item['name'] }}
+              {{ $item->getName() }}
             </td>
-            <td>${{ number_format($item['price'], 2) }}</td>
-            <td>{{ $item['quantity'] }}</td>
-            <td>${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+            <td>${{ number_format($item->getPrice(), 2) }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <form action="{{ route('cart.decrease', $id) }}" method="POST" class="m-0">
+                  @csrf
+                  <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
+                </form>
+                <span class="mx-2">{{ $item->getQuantity() }}</span>
+                <form action="{{ route('cart.add', $id) }}" method="POST" class="m-0">
+                  @csrf
+                  <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
+                </form>
+              </div>
+            </td>
+            <td>${{ number_format($item->getSubtotal(), 2) }}</td>
             <td>
               <form action="{{ route('cart.remove', $id) }}" method="POST">
                 @csrf
@@ -53,7 +65,7 @@
         @method('DELETE')
         <button type="submit" class="btn btn-warning">{{ __('cart.labels.clear_cart') }}</button>
       </form>
-      <a href="{{ route('orders.index') }}" class="btn btn-primary">Generar orden</a>
+      <a href="{{ route('orders.index') }}" class="btn btn-primary">{{ __('cart.labels.generate_order') }}</a>
     </div>
   @else
     <p>{{ __('cart.labels.empty_cart') }}</p>

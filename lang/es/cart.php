@@ -7,6 +7,7 @@ return [
     'subtitle_index' => 'Carrito de Compras',
     'messages' => [
         'added' => '¡Producto agregado al carrito!',
+        'decreased' => '¡Unidad descontada del carrito!',
         'removed' => '¡Producto eliminado del carrito!',
         'cleared' => '¡Carrito vaciado exitosamente!',
     ],
@@ -22,5 +23,6 @@ return [
         'proceed_to_checkout' => 'Proceder al Pago',
         'empty_cart' => 'Tu carrito está vacío.',
         'continue_shopping' => 'Continuar Comprando',
+        'generate_order' => 'Generar orden',
     ],
 ];

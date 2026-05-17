@@ -23,17 +23,17 @@
     <div class="mb-4">
       <h2 class="h6">{{ __('payment.checkout.order_summary') }}</h2>
       <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.checkout.order') }}</span><strong>#{{ $order->getId() }}</strong></li>
-        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.checkout.customer') }}</span><strong>{{ $order->getUser()->getName() }}</strong></li>
-        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.total') }}</span><strong>${{ number_format($order->getTotal(), 2) }}</strong></li>
-        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.address') }}</span><strong>{{ $order->getAddress() }}</strong></li>
+        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.checkout.order') }}</span><strong>#{{ $viewData['order']->getId() }}</strong></li>
+        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.checkout.customer') }}</span><strong>{{ $viewData['order']->getUser()->getName() }}</strong></li>
+        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.total') }}</span><strong>${{ number_format($viewData['order']->getTotal(), 2) }}</strong></li>
+        <li class="list-group-item d-flex justify-content-between"><span>{{ __('payment.fields.address') }}</span><strong>{{ $viewData['order']->getAddress() }}</strong></li>
       </ul>
     </div>
 
     <form action="{{ route('payment.store') }}" method="POST">
       @csrf
-      <input type="hidden" name="order_id" value="{{ $order->getId() }}">
-      <input type="hidden" name="amount" value="{{ $order->getTotal() }}">
+      <input type="hidden" name="order_id" value="{{ $viewData['order']->getId() }}">
+      <input type="hidden" name="amount" value="{{ $viewData['order']->getTotal() }}">
       <input type="hidden" name="date" value="{{ now()->toDateString() }}">
 
       <div class="mb-3">

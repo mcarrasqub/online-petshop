@@ -29,4 +29,18 @@ return [
 
     'dashboard' => 'Panel',
     'you_are_logged_in' => '¡Has iniciado sesión!',
+
+    'welcome_to_huellitas' => '¡Bienvenido a Huellitas!',
+    'find_your_best_friend' => 'Encuentra a tu mejor amigo peludo o los mejores productos para él.',
+    'explore_products' => 'Explorar Productos',
+    'join_now' => 'Unirse ahora',
+    'quality_products' => 'Productos de Calidad',
+    'quality_products_desc' => 'Ofrecemos los mejores alimentos, juguetes y accesorios para el cuidado de tu mascota.',
+    'view_catalog' => 'Ver catálogo',
+    'allied_products' => 'Productos Aliados',
+    'allied_products_desc' => 'Descubre productos exclusivos de nuestros socios estratégicos para tu mascota.',
+    'view_allies' => 'Ver aliados',
+    'fast_shipping' => 'Envío Rápido',
+    'fast_shipping_desc' => 'Recibe tus pedidos rápidamente en la puerta de tu casa. Cuidamos cada detalle.',
+    'my_orders' => 'Mis Pedidos',
 ];

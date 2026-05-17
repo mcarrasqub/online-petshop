@@ -6,14 +6,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use App\Models\Product;
-use App\Providers\ProductImageServiceProvider;
+use App\Utils\ProductImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
-    public function __construct(private readonly ProductImageServiceProvider $productImageService) {}
+    public function __construct(private readonly ProductImageService $productImageService) {}
 
     public function index(): View
     {
@@ -21,6 +23,7 @@ class ProductController extends Controller
         $viewData['title'] = __('admin.products.title_index');
         $viewData['subtitle'] = __('admin.products.list');
         $viewData['products'] = Product::all();
+        $viewData['success'] = session('success');
 
         return view('admin.products.index')->with('viewData', $viewData);
     }
@@ -30,6 +33,7 @@ class ProductController extends Controller
         $viewData = [];
         $viewData['title'] = __('admin.products.title_create');
         $viewData['subtitle'] = __('admin.products.create');
+        $viewData['categories'] = Category::orderBy('name')->get();
 
         return view('admin.products.create')->with('viewData', $viewData);
     }
@@ -47,7 +51,7 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index')->with('success', __('admin.messages.product_created'));
     }
 
-    public function show(string $id): View
+    public function show(int $id): View
     {
         $product = Product::findOrFail($id);
         $viewData = [];
@@ -58,24 +62,25 @@ class ProductController extends Controller
         return view('admin.products.show')->with('viewData', $viewData);
     }
 
-    public function edit(string $id): View
+    public function edit(int $id): View
     {
         $product = Product::findOrFail($id);
         $viewData = [];
         $viewData['title'] = __('admin.products.title_edit');
         $viewData['subtitle'] = __('admin.products.edit');
         $viewData['product'] = $product;
+        $viewData['categories'] = Category::orderBy('name')->get();
 
         return view('admin.products.edit')->with('viewData', $viewData);
     }
 
-    public function update(StoreProductRequest $request, string $id): RedirectResponse
+    public function update(UpdateProductRequest $request, int $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->productImageService->replace($product->image, $request->file('image'));
+            $data['image'] = $this->productImageService->replace($product->getImage(), $request->file('image'));
         }
 
         $product->update($data);
@@ -83,7 +88,7 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index')->with('success', __('admin.messages.product_updated'));
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $product->delete();

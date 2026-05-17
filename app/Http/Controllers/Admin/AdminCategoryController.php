@@ -39,7 +39,7 @@ class AdminCategoryController extends Controller
         return redirect()->route('admin.category.index')->with('success', __('admin.messages.category_created'));
     }
 
-    public function show(string $id): View
+    public function show(int $id): View
     {
         $category = Category::findOrFail($id);
         $viewData = [];
@@ -50,7 +50,7 @@ class AdminCategoryController extends Controller
         return view('admin.categories.show')->with('viewData', $viewData);
     }
 
-    public function edit(string $id): View
+    public function edit(int $id): View
     {
         $category = Category::findOrFail($id);
         $viewData = [];
@@ -61,7 +61,7 @@ class AdminCategoryController extends Controller
         return view('admin.categories.edit')->with('viewData', $viewData);
     }
 
-    public function update(StoreCategoryRequest $request, string $id): RedirectResponse
+    public function update(StoreCategoryRequest $request, int $id): RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->update($request->validated());
@@ -69,7 +69,7 @@ class AdminCategoryController extends Controller
         return redirect()->route('admin.category.index')->with('success', __('admin.messages.category_updated'));
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->delete();

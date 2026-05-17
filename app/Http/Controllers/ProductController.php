@@ -11,7 +11,9 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function index(ExchangeRateService $exchangeRateService): View
+    public function __construct(private readonly ExchangeRateService $exchangeRateService) {} 
+
+    public function index(): View
     {
         $query = request('search');
         $categoryId = request('category_id');
@@ -26,21 +28,21 @@ class ProductController extends Controller
 
         $usdPrices = [];
         foreach ($viewData['products'] as $product) {
-            $usdPrices[$product->getId()] = $exchangeRateService->convertCopToUsd($product->getPrice());
+            $usdPrices[$product->getId()] = $this->exchangeRateService->convertCopToUsd($product->getPrice());
         }
         $viewData['usdPrices'] = $usdPrices;
 
         return view('product.index')->with('viewData', $viewData);
     }
 
-    public function show(string $id, ExchangeRateService $exchangeRateService): View
+    public function show(int $id): View
     {
         $product = Product::findOrFail($id);
         $viewData = [];
         $viewData['title'] = $product->getName().' - '.__('product.store_name');
         $viewData['subtitle'] = __('product.subtitle_show', ['name' => $product->getName()]);
         $viewData['product'] = $product;
-        $viewData['priceInUsd'] = $exchangeRateService->convertCopToUsd($product->getPrice());
+        $viewData['priceInUsd'] = $this->exchangeRateService->convertCopToUsd($product->getPrice());
 
         return view('product.show')->with('viewData', $viewData);
     }

@@ -69,7 +69,6 @@
 	margin-bottom: 1.5rem;
 }
 
-/* Custom UI Colors */
 .text-app-brand {
 	color: #687fdd !important;
 }
@@ -93,4 +92,26 @@
 .btn-outline-app-warning:hover {
 	background-color: #ffc300;
 	color: #fff;
+}
+
+.btn-primary {
+	background-color: #687fdd !important;
+	border-color: #687fdd !important;
+	color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+	background-color: #5568b8 !important;
+	border-color: #5568b8 !important;
+	color: #fff !important;
+}
+
+.btn-warning {
+	background-color: #ffc300 !important;
+	border-color: #ffc300 !important;
+	color: #000 !important;
+}
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+	background-color: #e6b000 !important;
+	border-color: #e6b000 !important;
+	color: #000 !important;
 }

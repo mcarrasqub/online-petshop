@@ -19,11 +19,11 @@
       </a>
       <div class="vr bg-white mx-2 d-none d-lg-block"></div>
       @guest
-      <a class="navbar-brand font-weight-bold" href="{{ route('login') }}">{{ __('ui.login') }}</a>
-      <a class="navbar-brand font-weight-bold" href="{{ route('register') }}">{{ __('ui.register') }}</a>
+      <a class="nav-link text-white fw-bold fs-5 me-3" href="{{ route('login') }}">{{ __('ui.login') }}</a>
+      <a class="btn btn-primary fw-bold px-4 py-2 shadow-sm" href="{{ route('register') }}">{{ __('ui.register') }}</a>
       @else
-      <form id="logout" action="{{ route('logout') }}" method="POST">
-        <a role="button" class="nav-link active app-logout-link"
+      <form id="logout" action="{{ route('logout') }}" method="POST" class="d-flex align-items-center">
+        <a role="button" class="btn btn-danger fw-bold px-4 py-2 shadow-sm"
           onclick="document.getElementById('logout').submit();">{{ __('ui.logout') }}</a>
         @csrf
       </form>

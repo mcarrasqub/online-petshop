@@ -1,6 +1,12 @@
 # Online PetShop
 
+ **Aplicación desplegada y disponible públicamente:**  
+El proyecto ya se encuentra desplegado en producción y accesible para cualquier usuario en la siguiente dirección:
+
+🔗 [http://34.123.128.203](http://34.123.128.203)
+
 Este es un proyecto de tienda de mascotas en línea desarrollado con el framework Laravel. Permite a los usuarios navegar por productos, añadirlos a un carrito de compras, realizar pedidos y descargar recibos de pago. También incluye un panel de administración para gestionar productos y categorías.
+
 
 **Autores:**
 

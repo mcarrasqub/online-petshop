@@ -11,7 +11,7 @@ use Intervention\Image\Geometry\Factories\RectangleFactory;
 use Intervention\Image\Laravel\Facades\Image;
 use Intervention\Image\Typography\FontFactory;
 
-class ImagePaymentReceiptGenerator implements PaymentReceiptGeneratorInterface
+class ImagePaymentReceiptGeneratorService implements PaymentReceiptGeneratorInterface
 {
     private int $width = 700;
 

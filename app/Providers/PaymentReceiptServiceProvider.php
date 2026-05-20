@@ -5,8 +5,8 @@
 namespace App\Providers;
 
 use App\Interfaces\PaymentReceiptGeneratorInterface;
-use App\Services\Receipts\ImagePaymentReceiptGenerator;
-use App\Services\Receipts\PdfPaymentReceiptGenerator;
+use App\Services\Receipts\ImagePaymentReceiptGeneratorService;
+use App\Services\Receipts\PdfPaymentReceiptGeneratorService;
 use Illuminate\Support\ServiceProvider;
 
 class PaymentReceiptServiceProvider extends ServiceProvider
@@ -17,10 +17,10 @@ class PaymentReceiptServiceProvider extends ServiceProvider
             $format = $app->make('request')->query('format');
 
             if ($format === 'image') {
-                return new ImagePaymentReceiptGenerator;
+                return new ImagePaymentReceiptGeneratorService;
             }
 
-            return new PdfPaymentReceiptGenerator;
+            return new PdfPaymentReceiptGeneratorService;
         });
     }
 

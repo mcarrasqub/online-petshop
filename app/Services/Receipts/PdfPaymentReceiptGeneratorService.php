@@ -9,7 +9,7 @@ use App\Models\Payment;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Response;
 
-class PdfPaymentReceiptGenerator implements PaymentReceiptGeneratorInterface
+class PdfPaymentReceiptGeneratorService implements PaymentReceiptGeneratorInterface
 {
     public function generate(Payment $payment): Response
     {

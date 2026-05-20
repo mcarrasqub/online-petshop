@@ -56,9 +56,9 @@ class PaymentController extends Controller
     public function receipt(int $id): Response
     {
         $payment = Payment::with('order', 'order.user')->findOrFail($id);
-        
+
         $receiptGenerator = app(PaymentReceiptGeneratorInterface::class);
-        
+
         return $receiptGenerator->generate($payment);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Product;
 class CartItem
 {
     private Product $product;
+
     private int $quantity;
 
     public function __construct(Product $product, int $quantity)

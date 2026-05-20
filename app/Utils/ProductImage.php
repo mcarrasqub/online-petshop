@@ -3,12 +3,10 @@
 namespace App\Utils;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class ProductImageService
+class ProductImage
 {
-
     public function store(UploadedFile $image): string
     {
         return $image->store('products', 'gcs');
@@ -26,7 +24,7 @@ class ProductImageService
         if (! $path) {
             return;
         }
-        
+
         Storage::disk('gcs')->delete($path);
     }
 }

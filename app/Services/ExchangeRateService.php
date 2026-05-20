@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 use Exception;
-
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ExchangeRateService
 {
@@ -31,10 +30,11 @@ class ExchangeRateService
 
                 if ($response->successful()) {
                     $data = $response->json();
+
                     return (float) ($data['rates']['COP'] ?? 4000.0);
                 }
             } catch (Exception $exception) {
-                Log::error('Error fetching exchange rate: ' . $exception->getMessage());
+                Log::error('Error fetching exchange rate: '.$exception->getMessage());
             }
 
             return 4000.0;

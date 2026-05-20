@@ -134,4 +134,4 @@ composer require barryvdh/laravel-dompdf --prefer-source
 
 ## Indicaciones Adicionales
 
-Para crear un usuario con rol de administrador debe crearlo desde la vista de login (registrarse) y luego ir directamente a myPhpAdmin a la tabla de usuarios dentro de su base de datos, buscar el usuario que acabó de crear y editar el campo de is_admin para cambiar el 0 por 1. 
+En local para crear un usuario con rol de administrador debe crearlo desde la vista de login (registrarse) y luego ir directamente a myPhpAdmin a la tabla de usuarios dentro de su base de datos, buscar el usuario que acabó de crear y editar el campo de is_admin para cambiar el 0 por 1. 

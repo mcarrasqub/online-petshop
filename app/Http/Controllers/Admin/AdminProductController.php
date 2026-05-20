@@ -9,13 +9,13 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use App\Utils\ProductImageService;
+use App\Utils\ProductImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AdminProductController extends Controller
 {
-    public function __construct(private readonly ProductImageService $productImageService) {}
+    public function __construct(private readonly ProductImage $productImage) {}
 
     public function index(): View
     {
@@ -43,7 +43,7 @@ class AdminProductController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->productImageService->store($request->file('image'));
+            $data['image'] = $this->productImage->store($request->file('image'));
         }
 
         Product::create($data);
@@ -80,7 +80,7 @@ class AdminProductController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->productImageService->replace($product->getImage(), $request->file('image'));
+            $data['image'] = $this->productImage->replace($product->getImage(), $request->file('image'));
         }
 
         $product->update($data);

@@ -46,7 +46,7 @@ class ProductSeeder extends Seeder
                 'image' => 'products/fish_food.jpg',
                 'category_id' => $comida->getId(),
             ],
-            
+
             [
                 'name' => 'Cama Ortopédica Grande',
                 'description' => 'Cama con espuma viscoelástica para máximo confort.',
